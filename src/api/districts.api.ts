@@ -16,4 +16,5 @@ export async function getDistricts() {
         'Authorization': `Bearer ${access}`
     }})
     districtsStore.set(response.data)
+    console.log(response.data)
 }
