@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { authRegister } from '../api/auth/auth.api'
+    import { authRegister } from '../api/auth.api'
 
     // register uchun o'zgaruvchilar
     let name: HTMLInputElement
@@ -75,14 +75,20 @@
     async function onRegister() {
         if(nameIsTrue === true && phoneIsTrue === true && passIsTrue === true) {
             if(carRegIsTrue) {
-                await authRegister(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, car_number.value, car_model.value)
+                await authRegister(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, car_number.value.toString(), car_model.value.toString())
+                console.log(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, car_number.value.toString(), car_model.value.toString())
             }else{
                 await authRegister(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, null, null)
+                console.log(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, null, null)
             }
             
         }
     }
 </script>
+
+<svelte:head>
+	<title>Hamroh Taxi - Ro'yhatdan o'tish</title>
+</svelte:head>
 
 <section class="register-component">
     <div class="p-5 bg-indigo-900 flex justify-center items-center">
@@ -101,7 +107,6 @@
                 <span class="flex flex-col gap-1">
                     <label class="font-semibold" for="raqam">Phone:</label>
                     <span class="flex flex-row w-full">
-                        <p class="outline-0 rounded-l-md border-2 py-1 px-3 bg-gray-200 w-[fit-content] font-semibold">+998</p>
                         <input on:change={() => { checkPhone(phone.value)}} bind:this={phone} class="outline-0 rounded-r-md border-2 py-1 px-3 grow" type="phone" name="raqam" id="" placeholder="905550055">
                     </span>
                 </span>

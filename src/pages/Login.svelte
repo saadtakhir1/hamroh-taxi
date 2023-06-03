@@ -1,31 +1,35 @@
 <script lang="ts">
     import { navigate } from "svelte-navigator";
-    import { authLogin, getVerify } from "../api/auth/auth.api"
+    import { authLogin } from "../api/auth.api"
 
     let phone: string
     let password: string
 
     async function login(phone: string, password: string) {
-        authLogin(phone, password)
+        authLogin('+998' + phone.toString(), password.toString())
     }
 
     const token = localStorage.getItem('token')
     let payload: any = JSON.parse(localStorage.getItem('payload'))
 
-    async function verify(){
-        const res = await getVerify(token)
-        if(res.status == 200) {
-            payload = res.data.payload
-            navigate('/profile')
-        }else if(res.status == 401 || res.status == 403){
-            navigate('/login')
-        }
-    }
+    // async function verify(){
+    //     const res = await getVerify(token)
+    //     if(res.status == 200) {
+    //         payload = res.data.payload
+    //         navigate('/profile')
+    //     }else if(res.status == 401 || res.status == 403){
+    //         navigate('/login')
+    //     }
+    // }
 
 
-    verify()
+    // verify()
 
 </script>
+
+<svelte:head>
+	<title>Hamroh Taxi - Tizimga kirish</title>
+</svelte:head>
 
 <section class="register-component">
     <div class="h-screen w-screen bg-indigo-900 flex justify-center items-center">

@@ -5,6 +5,9 @@
 
 </script>
 
+<svelte:head>
+	<title>Hamroh Taxi - Biz haqimizda</title>
+</svelte:head>
 
 <Navbar></Navbar>
 

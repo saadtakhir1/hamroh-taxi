@@ -1,24 +1,25 @@
 <script lang="ts">
-  import { navigate } from "svelte-navigator"
-  import { getVerify } from '../api/auth/auth.api'
 
-  const token = localStorage.getItem('token')
+  import { navigate } from "svelte-navigator"
+  import { getUserPosts } from '../api/posts.api'
+
+  const access = localStorage.getItem('access')
   let payload: any = JSON.parse(localStorage.getItem('payload'))
   let showMenu = false
   let user_name: boolean = false
-  
-  
-  async function verify(){
-    const res = await getVerify(token)
-    if(res.status == 200) {
+
+  async function checkUser(){
+    const res = await getUserPosts(access)
+    if(res.status == 200){
       user_name = true
     }else{
-      user_name = false 
+      user_name = false
     }
   }
 
+  checkUser()
 
-  verify()
+  
 
 </script>
 
@@ -79,7 +80,7 @@
           </li>
           <li class="nav-item">
             {#if user_name}
-              <button on:click={() => { navigate('profile')}} class="bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white font-semibold px-5 py-2 rounded-2xl"><i class="bi bi-person mr-1"></i>Profile</button>
+              <button on:click={() => { navigate('/profile')}} class="bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white font-semibold px-5 py-2 rounded-2xl"><i class="bi bi-person mr-1"></i>Profile</button>
             {:else}
               <button on:click={() => { navigate('/login') }} class="bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white font-semibold px-5 py-2 rounded-2xl"><i class="bi bi-person mr-1"></i>Kirish</button>
             {/if}

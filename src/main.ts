@@ -1,7 +1,7 @@
-import Main from './Main.svelte';
+import Main from './Main.svelte'
 
 const app = new Main({
-	target: document.body
+	target: document.body	
 });
 
 export default app;

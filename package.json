@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
     "@tsconfig/svelte": "^2.0.0",
@@ -27,7 +28,9 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "axios": "^1.2.3",
+    "dotenv": "^16.1.1",
     "fs": "^0.0.1-security",
+    "react-responsive-carousel": "^3.2.23",
     "sirv-cli": "^2.0.0",
     "svelte-navigator": "^3.2.2"
   }

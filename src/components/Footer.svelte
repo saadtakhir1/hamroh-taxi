@@ -5,7 +5,7 @@
 
 <footer>
     <div class="flex flex-col">
-      <div class="footer-links bg-indigo-950 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-items-center p-5">
+      <div class="footer-links bg-indigo-950 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 items-start p-5">
         <div class="footer-soc-list flex flex-col justify-start gap-3 py-4">
           <p class="text-lg text-white font-semibold m-0">Ijtimoiy tarmoqlar</p>
           <div class="flex flex-col">
@@ -38,7 +38,7 @@
         </div>
         <div class="flex flex-col gap-3 justify-start py-4">
           <p class="text-white font-semibold m-0">Ilovani yuklab oling</p>
-          <div class="flex flex-col rounded bg-white p-2">
+          <div class="flex flex-col rounded bg-white p-2 w-[fit-content]">
             <a href="https" class=""><img src="./images/google-play.png" alt="" class="" width="120px"></a>
           </div>
         </div>

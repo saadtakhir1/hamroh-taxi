@@ -1,17 +1,36 @@
 <script lang="ts">
-    import ElonAdd from "../modals/ElonAdd.svelte";
-    import ElonProfile from "./ElonProfile.svelte";
+    import ElonAdd from "../modals/ElonAdd.svelte"
+    import ElonProfile from "./ElonProfile.svelte"
+    import { getUserPosts } from "../api/posts.api";
+    import { Post, userPostsStore } from "../store/posts.store"
+
+    const access = localStorage.getItem('access')
+    async function getPosts() {
+        try{
+            const res = await getUserPosts(access)
+            const user_posts: Post[] = res.data.results
+            userPostsStore.set(user_posts)
+        }
+        catch(err: any) {
+            console.log(err)
+        }
+    }
 
     export let showme: boolean
     let show = false
+
+    getPosts()
+
 </script>
 
-<div class={"flex-col w-2/3 py-3 mx-auto w-full gap-3 " + (showme ? "flex" : "hidden")}>
+<div class={"flex-col py-3 md:overflow-y-scroll md:h-screen mx-auto w-full gap-3 " + (showme ? "flex" : "hidden")}>
     <div class="flex flex-col mx-auto rounded-lg w-full gap-3">
         <button on:click={() => (show = true)} class="bg-indigo-900 text-white p-3 rounded-xl">
             <i class="bi bi-plus" /> Elon qo'shish</button>
-        <div class="grid grid-cols-1 md:grid-cols-2 ">
-            <ElonProfile showEdit={show} />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-8">
+            {#each $userPostsStore as post}
+                <ElonProfile author_name={post.user.name} user_role={post.user_role} from_loc={post.from_location} to_loc={post.to_location} go_time={post.go_time} count={post.count} addition={post.addition}/>
+            {/each}
         </div>
     </div>
     <ElonAdd show={show} close={() => (show = false)} />
