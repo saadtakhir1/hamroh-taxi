@@ -23,13 +23,13 @@
 
 </script>
 
-<div class={"flex-col py-3 md:overflow-y-scroll md:h-screen mx-auto w-full gap-3 " + (showme ? "flex" : "hidden")}>
-    <div class="flex flex-col mx-auto rounded-lg w-full gap-3">
+<div class={"flex-col py-3 md:h-screen mx-auto w-full gap-3 " + (showme ? "flex" : "hidden")}>
+    <div class="flex flex-col rounded-lg w-full gap-3 h-[80vh]">
         <button on:click={() => (show = true)} class="bg-indigo-900 text-white p-3 rounded-xl">
             <i class="bi bi-plus" /> Elon qo'shish</button>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-8">
-            {#each $userPostsStore as post}
-                <ElonProfile author_name={post.user.name} user_role={post.user_role} from_loc={post.from_location} to_loc={post.to_location} go_time={post.go_time} count={post.count} addition={post.addition}/>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 snap-x md:py-8 md:px-8 overflow-y-auto">
+            {#each $userPostsStore as post} 
+                <ElonProfile price={post.price} id={post.id} author_name={post.user.name} user_role={post.user_role} from_loc={post.from_location} to_loc={post.to_location} go_time={post.go_time} count={post.count} addition={post.addition}/>
             {/each}
         </div>
     </div>

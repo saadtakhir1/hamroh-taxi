@@ -52,8 +52,8 @@
     
 </script>
 
-<div class={"h-max md:h-screen md:w-screen bg-black/70 fixed top-0 left-0 bottom-0 right-0 z-[999] justify-center items-center " + (show ? "flex" : "hidden")}>
-    <div class="bg-white p-8 flex flex-col gap-3 md:w-[fit-content] rounded-md shadow-md">
+<div class={"h-screen w-screen bg-black/70 fixed top-0 left-0 bottom-0 right-0 z-[999] justify-center items-center " + (show ? "flex" : "hidden")}>
+    <div class="bg-white p-8 flex flex-col gap-3 w-screen h-full md:h-[fit-content] md:w-[fit-content] md:rounded-md shadow-md overflow-y-auto">
 
         <p class="text-xl text-center font-bold">Elon qo'shish</p>
 

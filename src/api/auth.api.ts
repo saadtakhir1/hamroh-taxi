@@ -1,5 +1,6 @@
 import axios from "axios"
 import { navigate } from "svelte-navigator"
+import { getCar } from "./car.api"
 
 const URL = 'http://185.105.91.162/api/'
 
@@ -10,10 +11,25 @@ export async function authLogin(phone_number: string, password: string) {
             const payload = res.data.user
             const access = res.data.access
             const refresh = res.data.refresh
-            localStorage.setItem('payload', JSON.stringify(payload))
-            localStorage.setItem('access', access)
-            localStorage.setItem('refresh', refresh)
-            navigate('/')
+            if(payload.user_role == 1) {
+                try{
+                    const res = await getCar(access)
+                    const car = res.data[0]
+                    localStorage.setItem('payload', JSON.stringify(payload))
+                    localStorage.setItem('access', access)
+                    localStorage.setItem('refresh', refresh)
+                    localStorage.setItem('car', JSON.stringify(car))
+                    navigate('/')
+                } catch(err: any) {
+                    console.log(err)
+                }
+            }else{
+                localStorage.setItem('payload', JSON.stringify(payload))
+                localStorage.setItem('access', access)
+                localStorage.setItem('refresh', refresh)
+                navigate('/')
+            }
+            
         }
     catch(err: any) {
         console.log(err)
@@ -42,7 +58,7 @@ export async function authRegister(name: string, phone_number: string, password:
                 const access = created_user.data.access
                 const refresh = created_user.data.refresh
                 const payload = created_user.data.user
-                const car = created_car.data
+                const car = created_car.data[0]
                 localStorage.setItem('payload', JSON.stringify(payload))
                 localStorage.setItem('access', access) 
                 localStorage.setItem('refresh', refresh) 

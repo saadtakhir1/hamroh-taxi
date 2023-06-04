@@ -9,13 +9,17 @@
   export let user_role: number
   export let phone_number: string
 
-  const from_arr = from_loc.split(' ')
-  let from_name = from_arr[0]
-  let from_dist = from_arr[1]
+  let from_name: string, from_dist: string, to_name: string, to_dist: string
 
-  const to_arr = to_loc.split(' ')
-  let to_name = to_arr[0]
-  let to_dist = to_arr[1]
+  function addLoc() {
+    const from_arr = from_loc.split(' ')
+    from_name = from_arr[0]
+    from_dist = from_arr[1]
+
+    const to_arr = to_loc.split(' ')
+    to_name = to_arr[0]
+    to_dist = to_arr[1]
+  }
 
   let userRole: string
 
@@ -25,11 +29,13 @@
     userRole = "Haydovchi"
   }
 
+  addLoc()
+
 </script>
 
-<div class="flex flex-col w-full h-full  items-end justify-center p-4 rounded-2xl shadow mx-3 bg-gradient-to-b from-slate-200 from-1%  to-slate-400 to-100%">
+<div class="flex flex-col w-full h-full  items-end justify-center p-4 rounded-2xl shadow bg-gradient-to-b from-slate-200 from-1%  to-slate-400 to-100%">
 
-    <div class="flex flex-col justify-start gap-3 w-full px-8 py-4">
+    <div class="flex flex-col justify-start gap-3 w-full lg:px-8 md:py-4">
 
         <div class="1 flex justify-between items-center">
           <div class="go_time flex flex-col gap-1">
@@ -39,33 +45,33 @@
             </span>
             <p class="go_time my-0">{go_time}</p>
           </div>
-          <div class="price flex flex-col gap-1">
+          <div class="price flex flex-col items-end gap-1">
             <span class="flex items-center gap-1">
               <i class="bi bi-coin"></i>
               <p class="font-semibold text-sm">Yo'lkira narxi:</p>
             </span>
             <span class="flex items-end">
-              <p class="my-0 text-2xl">{price}</p>
+              <p class="my-0 text-2xl font-bold">{price}</p>
               <p>so'm</p>
             </span>
           </div>
         </div>
 
         <div class="2 flex justify-between items-center">
-          <div class="count flex gap-1">
+          <div class="count flex flex-col gap-1">
             <span class="flex items-center gap-1">
               <i class="bi bi-people"></i>
               <p class="font-semibold text-sm">Hamrohlar:</p>
             </span>
-            <p class="go_time my-0">{count} ta</p>
+            <p class="go_time my-0 text-xl font-semibold">{count} ta</p>
           </div>
-          <div class="go_time flex gap-1">
+          <div class="go_time flex flex-col items-end gap-1">
             <span class="flex items-center gap-1">
               <i class="bi bi-coin"></i>
               <p class="font-semibold text-sm">Ketish vaqti:</p>
             </span>
             <span class="">
-              <p class="my-0">{go_time}</p>
+              <p class="my-0 text-xl font-semibold">{go_time}</p>
             </span>
           </div>
         </div>
@@ -98,11 +104,11 @@
           <div class="user flex items-center gap-1">
             <img class="rounded-full" src="./images/pf-pic.jpeg" alt="" width="54px">
             <span class="flex flex-col items-start">
-              <p class="text-xl font-semibold">{author_name}</p>
-              <p class="text-sm">{userRole}</p>
+              <p class="text-sm lg:text-base xl:text-xl font-semibold">{author_name}</p>
+              <p class="text-xs lg:text-sm ">{userRole}</p>
             </span>
           </div>
-          <a href="tel:{phone_number}" class="bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white text-sm font-semibold rounded-xl py-3 px-5"><i class="bi bi-telephone mr-2"></i> Hamroh
+          <a href="tel:{phone_number}" class="bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white text-xs md:text-sm font-semibold rounded-xl py-3 px-5"><i class="bi bi-telephone mr-2"></i> Hamroh
             bo'lish</a>
         </div>
 

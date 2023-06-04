@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const URL = 'http://185.105.91.162/api/'
 
-
+// get all posts
 export async function getAllPosts() {
     return await axios.get(URL + `posts-list/`)    
 }
@@ -33,15 +33,32 @@ export async function getPostsByFilter(from_location: string, to_location: strin
     }
 }
 
+// get user posts
 export async function getUserPosts(access: string) {
     return await axios.get(URL + `posts/`, { headers: {
         'Authorization': `Bearer ${access}`
     }})
 }
 
+// delete post
+export async function deletePost(access: string, id: number) {
+    return await axios.delete(URL + 'posts/' + id + '/', { headers: {
+        'Authorization': `Bearer ${access}`
+    }})
+}
+
+// create post
 export async function createPost(access: string, user_role: number, from_location: string, to_location: string, go_time: string, count: number, price: string, addition: string) {
     const data = { user_role, from_location, to_location, go_time, count, price, addition }
     return await axios.post(URL + 'posts/', data, { headers: {
             'Authorization': `Bearer ${access}`
         }})
-    }
+}
+
+// edit post 
+export async function editPost(id: number, access: string, user_role: number, from_location: string, to_location: string, go_time: string, count: number, price: string, addition: string) {
+    const data = { user_role, from_location, to_location, go_time, count, price, addition }
+    return await axios.put(URL + 'posts/' + id + '/', data, { headers: {
+            'Authorization': `Bearer ${access}`
+        }})
+}

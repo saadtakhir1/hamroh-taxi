@@ -14,21 +14,20 @@
 
   <Navbar></Navbar>
 
-  <div class="flex flex-col md:flex-row items-center gap-1 w-full mt-[100px]">
-    <div class="flex flex-col items-center gap-5 w-full sm:w-1/2">
-      <h1 class="font-bold text-2xl w-1/2 sm:w-full lg:text-5xl outline-0">Hamroh Taxi</h1>
-      <p class="lg:text-xl text-center">Ilovani yuklab oling va post joylang. Biz bilan tez va qulay hamroh toping!</p>
+  <div class="flex flex-col md:flex-row items-center justify-center gap-5 h-screen mt-[64px] w-full">
+    <div class="flex flex-col items-center justify-start w-full gap-5 sm:w-1/2">
+      <h1 class="font-bold text-center text-4xl sm:w-full lg:text-5xl outline-0">Hamroh Taxi</h1>
+      <p class="lg:text-xl text-center w-3/4">Ilovani yuklab oling va post joylang. Biz bilan tez va qulay hamroh toping!</p>
       <button on:click={() => { navigate('/')}} class="btn bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white text-md md:textlg px-5 py-2 rounded-2xl shadow-sm font-bold">Yuklab olish</button>
     </div>
-    <div class="">
-      <img class="img w-[200px]" src="./images/Smartphone.png" alt="" draggable="false">
+    <div class="mt-5 sm:mt-0">
+      <img class="img w-[250px] sm:w-[350px] md:[600px] lg:[600px]" src="./images/Smartphone.png" alt="" draggable="false">
     </div>
   </div>
  
-  <div class="flex flex-col md:flex-row mt-12 items-center gap-5">
-
+  <div class="flex flex-col md:flex-row items-center justify-center gap-5 mt-[64px] w-full">
     <div class="">
-      <img class="img w-[200px]" src="./images/3682361.jpg" alt="" draggable="false">
+      <img class="img w-[350px] sm:w-[450px] md:[600px] lg:[600px]" src="./images/3682361.jpg" alt="" draggable="false">
     </div>
 
     <div class="flex flex-col items-center gap-5">
@@ -40,7 +39,7 @@
   </div>
 
 
-  <div class="flex flex-col md:flex-row items-center gap-5 mt-12">
+  <div class="flex flex-col md:flex-row items-center justiffy-center gap-5 my-[64px] w-full">
     <div class="flex flex-col items-center gap-5 sm:w-1/2">
       <h1 class="font-bold text-4xl lg:text-5xl outline-0">Taxi Izlash</h1>
       <p class="fs-6 my-sm-3 lg:text-xl text-center ">Biz bilan tez va qulay taxi toping !</p>
@@ -48,7 +47,7 @@
         izlash</button>
     </div>
     <div class="">
-      <img class="img w-[200px]" src="./images/7119303_3411096.jpg" alt="">
+      <img class="img w-[250px] sm:w-[350px] md:[600px] lg:[600px]" src="./images/7119303_3411096.jpg" alt="">
     </div>
   </div>
 
@@ -73,7 +72,7 @@
   <section class="contact flex items-center justify-center px-3 md:pb-8 sm:px-8">
     <div class="flex flex-col md:flex-row justify-around items-center p-5 xl:w-4/5 sm:gap-5 rounded-2xl bg-slate-200 shadow-lg my-5">
       <div class="">
-        <img src="./images/12982910_5124556-removebg-preview.png" alt="" width="200px">
+        <img src="./images/12982910_5124556-removebg-preview.png" alt="" class='w-full'>
       </div>
       <div class="inline-flex flex-col gap-4 p-5 rounded">
         <p class="text-2xl font-semibold text-center">Biz bilan bog'lanish</p>

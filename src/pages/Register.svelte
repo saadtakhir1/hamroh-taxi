@@ -76,10 +76,8 @@
         if(nameIsTrue === true && phoneIsTrue === true && passIsTrue === true) {
             if(carRegIsTrue) {
                 await authRegister(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, car_number.value.toString(), car_model.value.toString())
-                console.log(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, car_number.value.toString(), car_model.value.toString())
             }else{
                 await authRegister(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, null, null)
-                console.log(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, null, null)
             }
             
         }
@@ -92,7 +90,7 @@
 
 <section class="register-component">
     <div class="p-5 bg-indigo-900 flex justify-center items-center">
-        <div class="flex flex-col gap-3 bg-white p-8 rounded-xl shadow-md w-4/3 md:w-[36%]">
+        <div class="flex flex-col gap-3 bg-white p-8 rounded-xl shadow-md w-[fit-content">
             <div class="flex items-center justify-center">
                 <img src="./images/logo.png" alt="logo" width="32px">
                 <p class="text-2xl font-bold">Hamroh Taxi</p>

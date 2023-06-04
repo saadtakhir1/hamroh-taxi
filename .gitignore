@@ -1,8 +1,8 @@
 /node_modules/
 /public/build/
-/res/
 
 .DS_Store
 .vscode
+.env
 
 package-lock.json

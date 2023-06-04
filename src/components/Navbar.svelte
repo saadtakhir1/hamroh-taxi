@@ -23,8 +23,8 @@
 
 </script>
 
-<nav class="shadow-sm fixed top-0 left-0 right-0 bg-white/50 backdrop-blur-md px-4 py-3 sm:px-8 sm:py-3 text-white z-[999]">
-    <div class="flex justify-between items-center md:px-8">
+<nav class="shadow-sm fixed top-0 left-0 right-0 bg-white/50 backdrop-blur-md px-4 py-3 lg:px-8 sm:py-3 text-white z-[999]">
+    <div class="flex justify-between items-center lg:px-8">
       <a on:click={() => navigate('/')} class="sm:text-2xl font-[900] text-xl flex items-center gap-1" href="/" ><img src="./images/logonav.svg" alt="navlogo"></a>
       <button on:click={() => {
         showMenu = true
@@ -37,7 +37,7 @@
             <p class="px-5 text-xl font-semibold">Menu</p>
             <button on:click={() => showMenu = false} class="close-menu bg-white text-black px-2 py-1 rounded-lg"><i class="bi bi-x text-xl"></i></button>
           </div>
-          <div class="flex flex-col items-start px-5 gap-2 font-semibold">
+          <div class="flex flex-col items-start px-5 gap-2 font-semibold sm:text-xs">
               <button on:click={() => navigate('/')} class="py-2 rounded"><i
                   class="bi bi-house mr-1"></i>Asosiy sahifa</button> 
               <button on:click={() => navigate('/passengers')} class="py-2 rounded"><i
@@ -63,19 +63,19 @@
         </div>
       </div>
       <div class="navbar-menu-lg">
-        <ul class="flex items-center justify-center gap-1 text-[16px] text-indigo-950 font-semibold">
+        <ul class="flex items-center justify-center gap-2 md:text-xs lg:text-sm xl:text-base text-indigo-950 font-semibold">
           <li class="nav-item">
-            <button class="px-5 py-2 rounded-2xl hover:bg-gradient-to-b from-slate-100 to-slate-300" on:click={() => navigate('/')}><i class="bi bi-house mr-1"></i>Asosiy
+            <button class="lg:px-5 px-2 py-2 rounded-2xl hover:bg-gradient-to-b from-slate-100 to-slate-300" on:click={() => navigate('/')}><i class="bi bi-house mr-1"></i>Asosiy
               sahifa</button>
           </li>
           <li class="nav-item">
-            <button class="px-5 py-2 rounded-2xl  hover:bg-gradient-to-b from-slate-100 to-slate-300" on:click={() => navigate('/passengers')}><i class="bi bi-person-badge mr-1"></i>Hamroh izlash</button>
+            <button class="lg:px-5 px-2 py-2 rounded-2xl  hover:bg-gradient-to-b from-slate-100 to-slate-300" on:click={() => navigate('/passengers')}><i class="bi bi-person-badge mr-1"></i>Hamroh izlash</button>
           </li>
           <li class="nav-item">
-            <button class="px-5 py-2 rounded-2xl  hover:bg-gradient-to-b from-slate-100 to-slate-300" on:click={() => navigate('/drivers')}><i class="bi bi-car-front mr-1"></i>Taxi izlash</button>
+            <button class="lg:px-5 px-2 py-2 rounded-2xl  hover:bg-gradient-to-b from-slate-100 to-slate-300" on:click={() => navigate('/drivers')}><i class="bi bi-car-front mr-1"></i>Taxi izlash</button>
           </li>
           <li class="nav-item">
-            <button class="px-5 py-2 rounded-2xl  hover:bg-gradient-to-b from-slate-100 to-slate-300" on:click={() => navigate('/about')}><i class="bi bi-info-circle mr-1"></i>Biz
+            <button class="lg:px-5 px-2 py-2 rounded-2xl  hover:bg-gradient-to-b from-slate-100 to-slate-300" on:click={() => navigate('/about')}><i class="bi bi-info-circle mr-1"></i>Biz
               haqimizda</button>
           </li>
           <li class="nav-item">
