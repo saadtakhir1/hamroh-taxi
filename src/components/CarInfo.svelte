@@ -21,7 +21,7 @@
 
 </script>
 
-{#if car}
+{#if car !== null &&  car !== undefined}
     <div class={"flex-col gap-3 p-5 " + (showme ? "flex" : "hidden")}>
         <div class="flex flex-col px-4 gap-3">
             <div class="flex justify-between">
