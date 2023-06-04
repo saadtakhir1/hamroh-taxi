@@ -161,7 +161,7 @@
  </div>
  <div class="grid grid-cols-1 md:grid-cols-2 w-full gap-5 place-items-center">
   {#each $passPostsStore as post}
-    <Elon phone_number={post.user.phone_number} price={post.price} author_name={post.user.name} user_role={post.user_role} from_loc={post.from_location} to_loc={post.to_location} go_time={post.go_time} count={post.count} addition={post.addition}></Elon>
+    <Elon posted_time={post.posted_time} phone_number={post.user.phone_number} price={post.price} author_name={post.user.name} user_role={post.user_role} from_loc={post.from_location} to_loc={post.to_location} go_time={post.go_time} count={post.count} addition={post.addition}></Elon>
   {/each} 
  </div>
 

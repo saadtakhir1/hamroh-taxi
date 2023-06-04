@@ -1,12 +1,40 @@
 <script lang="ts">
     import { navigate } from "svelte-navigator";
     import { authLogin } from "../api/auth.api"
+    import { getCar } from "../api/car.api";
 
     let phone: string
     let password: string
 
     async function login(phone: string, password: string) {
-        authLogin('+998' + phone.toString(), password.toString())
+        try {
+            const res = await authLogin('+998' + phone.toString(), password.toString())
+            const payload = res.data.user
+            const access = res.data.access
+            const refresh = res.data.refresh
+            if(payload.user_role == 1) {
+                try{
+                    const res = await getCar(access)
+                    const car = res.data[0]
+                    localStorage.setItem('payload', JSON.stringify(payload))
+                    localStorage.setItem('access', access)
+                    localStorage.setItem('refresh', refresh)
+                    localStorage.setItem('car', JSON.stringify(car))
+                    navigate('/')
+                } catch(err: any) {
+                    console.log(err)
+                }
+            }else{
+                localStorage.setItem('payload', JSON.stringify(payload))
+                localStorage.setItem('access', access)
+                localStorage.setItem('refresh', refresh)
+                navigate('/')
+            }
+            
+        }
+        catch(err: any) {
+            console.log(err)
+        }
     }
 
     const token = localStorage.getItem('token')

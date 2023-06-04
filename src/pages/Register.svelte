@@ -1,5 +1,8 @@
 <script lang="ts">
-    import { authRegister } from '../api/auth.api'
+    import { navigate } from 'svelte-navigator';
+    import { authRegister, authLogin, LoginDto, RegisterDto } from '../api/auth.api'
+    import { CarDto, createCar } from '../api/car.api'
+    import Alert from '../modals/Alert.svelte'
 
     // register uchun o'zgaruvchilar
     let name: HTMLInputElement
@@ -62,8 +65,6 @@
         }
     }
 
-
-
     function upperCaseCarNum(){
         let currentValue = car_number.value;
         if(currentValue.length > 8){
@@ -71,26 +72,99 @@
         }     
         car_number.value = currentValue.toUpperCase();  
     }
+
+    let showAlert: boolean = false
+    let text: string
+    let color: string
+
+    function closeAlert() {
+        showAlert = false
+    }
+
+    function addAlert(errText: string, alertColor: string, show: boolean) {
+        text = errText
+        color = alertColor
+        showAlert = show
+    }
+
+    if(showAlert) {
+        setTimeout(closeAlert, 7000)
+    }
     
     async function onRegister() {
         if(nameIsTrue === true && phoneIsTrue === true && passIsTrue === true) {
-            if(carRegIsTrue) {
-                await authRegister(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, car_number.value.toString(), car_model.value.toString())
-            }else{
-                await authRegister(name.value.toString(), "+998" + phone.value.toString(), password.value.toString(), +selectRole.value, null, null)
+            const user_data: RegisterDto = { 
+                name: name.value.toString(), 
+                phone_number: "+998" + phone.value.toString(), 
+                password: password.value.toString(), 
+                user_role: +selectRole.value 
             }
-            
-        }
+            if(carRegIsTrue) {
+                const car_data: CarDto = { 
+                    car_model: car_model.value.toString(), 
+                    car_number: car_number.value.toString() 
+                }
+                const login_data: LoginDto = {
+                    phone_number: user_data.phone_number,
+                    password: user_data.password
+                }
+
+                try {
+                    const res = await authRegister(user_data)
+                    const created_car  = await createCar(res.data.access, car_data) 
+                    const created_user = await authLogin(login_data)
+                    const access = created_user.data.access
+                    const refresh = created_user.data.refresh
+                    const payload = created_user.data.user
+                    const car = created_car.data
+                    localStorage.setItem('payload', JSON.stringify(payload))
+                    localStorage.setItem('access', access) 
+                    localStorage.setItem('refresh', refresh) 
+                    localStorage.setItem('car', JSON.stringify(car)) 
+                    navigate('/')
+                } catch(err: any){
+                    addAlert(err.response.data.error, 'red', true)
+                    console.log(err)
+                }
+            }
+            else{
+                try{
+                    await authRegister(user_data)
+                    const login_data: LoginDto = {
+                        phone_number: user_data.phone_number,
+                        password: user_data.password
+                    }
+                    const created_user = await authLogin(login_data)
+
+                    const access = created_user.data.access
+                    const refresh = created_user.data.refresh
+                    const payload = created_user.data.user
+                    localStorage.setItem('payload', JSON.stringify(payload))
+                    localStorage.setItem('access', access) 
+                    localStorage.setItem('refresh', refresh)  
+                    navigate('/')         
+                }catch(err: any) {
+                    addAlert(err.response.data.error, 'red', true)
+                    console.log(err)
+                }
+            }
+                
+            }else{
+                console.log('hello')
+            }
     }
+
 </script>
 
 <svelte:head>
 	<title>Hamroh Taxi - Ro'yhatdan o'tish</title>
 </svelte:head>
 
+<Alert show={showAlert} color={color} text={text} close={() => { showAlert = false } }></Alert>
+
 <section class="register-component">
-    <div class="p-5 bg-indigo-900 flex justify-center items-center">
-        <div class="flex flex-col gap-3 bg-white p-8 rounded-xl shadow-md w-[fit-content">
+    <div class="p-5 bg-indigo-900 h-full flex justify-center items-center">
+        <div class="flex flex-col gap-3 bg-white p-8 rounded-xl shadow-md w-[fit-content]">
             <div class="flex items-center justify-center">
                 <img src="./images/logo.png" alt="logo" width="32px">
                 <p class="text-2xl font-bold">Hamroh Taxi</p>
