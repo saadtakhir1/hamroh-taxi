@@ -24,7 +24,12 @@
     const payload = JSON.parse(localStorage.getItem('payload'))
 
     let showInfo: boolean = true;
+    let carInfo: boolean = false;
     let showAd: boolean = false;
+
+    if(payload.user_role == 1 && showInfo == true) {
+        carInfo = true
+    }
 
     function clickInfo() {
         showInfo = true
@@ -75,6 +80,7 @@
                             {:else}
                                 Haydovchi
                             {/if}</p>
+                        <button on:click={logOut}>Chiqish</button>
                     </div>
                 </div>
                 <div class="flex md:flex-col px-3 gap-3 text-lg">
@@ -86,7 +92,7 @@
             <div class="flex flex-col mx-auto w-full gap-3">
                 <div>
                     <UserInfo showme={showInfo}></UserInfo>
-                    <CarInfo showme={showInfo}></CarInfo>
+                    <CarInfo showme={carInfo}></CarInfo>
                 </div>
                 <Elonlarim showme={showAd}></Elonlarim>
             </div>
