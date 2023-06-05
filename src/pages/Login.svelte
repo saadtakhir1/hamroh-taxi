@@ -1,14 +1,35 @@
 <script lang="ts">
     import { navigate } from "svelte-navigator";
-    import { authLogin } from "../api/auth.api"
+    import { LoginDto, authLogin } from "../api/auth.api"
     import { getCar } from "../api/car.api";
+    import Alert from "../modals/Alert.svelte"
+
+
+    let show: boolean = false
+    let text: string
+    let color: string
+
+    function closeAlert() {
+        show = false
+    }
+
+    function addAlert(errText: string, alertColor: string, showAlert: boolean) {
+        text = errText
+        color = alertColor
+        show = showAlert
+        setTimeout(closeAlert, 10000)
+    }
 
     let phone: string
     let password: string
 
     async function login(phone: string, password: string) {
         try {
-            const res = await authLogin('+998' + phone.toString(), password.toString())
+            const dto: LoginDto = {
+                phone_number: '+998' + phone.toString(),
+                password: password.toString()
+            }
+            const res = await authLogin(dto)
             const payload = res.data.user
             const access = res.data.access
             const refresh = res.data.refresh
@@ -33,31 +54,18 @@
             
         }
         catch(err: any) {
+            addAlert(err.response.data.errors[0].detail, 'red', true)
             console.log(err)
         }
     }
-
-    const token = localStorage.getItem('token')
-    let payload: any = JSON.parse(localStorage.getItem('payload'))
-
-    // async function verify(){
-    //     const res = await getVerify(token)
-    //     if(res.status == 200) {
-    //         payload = res.data.payload
-    //         navigate('/profile')
-    //     }else if(res.status == 401 || res.status == 403){
-    //         navigate('/login')
-    //     }
-    // }
-
-
-    // verify()
 
 </script>
 
 <svelte:head>
 	<title>Hamroh Taxi - Tizimga kirish</title>
 </svelte:head>
+
+<Alert show={show} text={text} color={color} close={() => { show = false }}></Alert>
 
 <section class="register-component">
     <div class="h-screen w-screen bg-indigo-900 flex justify-center items-center">
@@ -78,7 +86,7 @@
                 </span>
                 <span class="flex flex-col gap-2 justify-center">
                     <button on:click={() => { login(phone, password) }} class="py-2 px-4 text-lg rounded-md font-semibold text-white bg-indigo-900">Kirish</button>
-                    <a class="py-2 px-4 rounded-md text-red-900 font-semibold text-center" href="/reset-password">Parolni tiklash</a>
+                    <!-- <a class="py-2 px-4 rounded-md text-red-900 font-semibold text-center" href="/reset-password">Parolni tiklash</a> -->
                 </span>
                 <span class="flex flex-col md:flex-row gap-2">
                     <p class="text-center">Akkaunt mavjud bo'lmasa:</p>

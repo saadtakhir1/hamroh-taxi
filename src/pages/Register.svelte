@@ -32,10 +32,10 @@
     function checkPhone(phone_value: string) {
         if(phone_value.length === 0 || phone_value.length > 9 || phone_value.length < 9){
             phoneIsTrue = false
-            name.style.border = '1px red solid'
+            phone.style.border = '1px red solid'
         }else{
             phoneIsTrue = true
-            name.style.border = '1px green solid'
+            phone.style.border = '1px green solid'
         }
     }
 
@@ -85,10 +85,7 @@
         text = errText
         color = alertColor
         showAlert = show
-    }
-
-    if(showAlert) {
-        setTimeout(closeAlert, 7000)
+        setTimeout(closeAlert, 10000)
     }
     
     async function onRegister() {
@@ -179,7 +176,7 @@
                 <span class="flex flex-col gap-1">
                     <label class="font-semibold" for="raqam">Phone:</label>
                     <span class="flex flex-row w-full">
-                        <input on:change={() => { checkPhone(phone.value)}} bind:this={phone} class="outline-0 rounded-r-md border-2 py-1 px-3 grow" type="phone" name="raqam" id="" placeholder="905550055">
+                        <input on:change={() => { checkPhone(phone.value)}} bind:this={phone} class="outline-0 rounded-md border-2 py-1 px-3 grow" type="phone" name="raqam" id="" placeholder="905550055">
                     </span>
                 </span>
                 <span class="flex flex-col gap-1">

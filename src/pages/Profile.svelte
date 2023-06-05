@@ -13,13 +13,17 @@
     
     async function checkAccess() {
         try{
-            const res = await getUserPosts(access)
+            await getUserPosts(access)
         }catch(err: any){
             navigate('/login')
         }
     }
 
-    checkAccess()
+    if(access) {
+        checkAccess()
+    } else {
+        navigate('/login')
+    }
 
     const payload = JSON.parse(localStorage.getItem('payload'))
 
@@ -80,19 +84,19 @@
                             {:else}
                                 Haydovchi
                             {/if}</p>
-                        <button on:click={logOut}>Chiqish</button>
+                        <button class="underline text-red-500" on:click={logOut}>Chiqish</button>
                     </div>
                 </div>
                 <div class="flex md:flex-col px-3 gap-3 text-lg">
-                    <button on:click={clickInfo} bind:this={btn_info} class="px-4 py-2 rounded-md shadow-md bg-indigo-900 text-white font-semibold">Malumotlarim</button>
-                    <button on:click={clickAds} bind:this={btn_ads} class="px-4 py-2 grow rounded-md shadow-md font-semibold">Elonlarim</button>
+                    <button on:click={clickInfo} bind:this={btn_info} class="flex gap-2 px-4 py-2 rounded-md shadow-md bg-indigo-900 text-white font-semibold"><i class="bi bi-person"></i> Malumotlarim</button>
+                    <button on:click={clickAds} bind:this={btn_ads} class="flex gap-2 px-4 py-2 grow rounded-md shadow-md font-semibold"><i class="bi bi-card-list"></i> Elonlarim</button>
                 </div>
             </div>
             
             <div class="flex flex-col mx-auto w-full gap-3">
                 <div>
                     <UserInfo showme={showInfo}></UserInfo>
-                    <CarInfo showme={carInfo}></CarInfo>
+                    <CarInfo showme={showInfo}></CarInfo>
                 </div>
                 <Elonlarim showme={showAd}></Elonlarim>
             </div>
