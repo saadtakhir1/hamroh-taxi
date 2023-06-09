@@ -151,6 +151,14 @@
             }
     }
 
+    let body = document.body
+
+    function addBodyColor() {
+        body.classList.add('bg-indigo-900')
+    }
+
+    addBodyColor()
+
 </script>
 
 <svelte:head>
@@ -160,7 +168,7 @@
 <Alert show={showAlert} color={color} text={text} close={() => { showAlert = false } }></Alert>
 
 <section class="register-component">
-    <div class="p-5 bg-indigo-900 h-full flex justify-center items-center">
+    <div class="p-5 h-full flex justify-center items-center">
         <div class="flex flex-col gap-3 bg-white p-8 rounded-xl shadow-md w-[fit-content]">
             <div class="flex items-center justify-center">
                 <img src="./images/logo.png" alt="logo" width="32px">

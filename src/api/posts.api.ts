@@ -42,7 +42,7 @@ export async function getUserPosts(access: string) {
 
 // delete post
 export async function deletePost(access: string, id: number) {
-    return await axios.delete(URL + 'posts/' + id + '/', { headers: {
+    return await axios.patch(URL + 'posts/' + id + '/', { status: 0 }, { headers: {
         'Authorization': `Bearer ${access}`
     }})
 }

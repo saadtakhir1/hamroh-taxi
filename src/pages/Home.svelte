@@ -14,22 +14,21 @@
 
   <Navbar></Navbar>
 
-  <div class="flex flex-col md:flex-row items-center justify-center gap-5 h-screen mt-[64px] w-full">
+  <div class="flex flex-col md:flex-row items-center justify-center gap-5 h-screen mt-[40px] w-full">
+    <div class="">
+      <img class="img w-[250px] sm:w-[300px] md:w-[300px] lg:w-[400px] xl:w-[550px]" src="./images/Smartphone.png" alt="" draggable="false">
+    </div>
     <div class="flex flex-col items-center justify-start w-full gap-5 sm:w-1/2">
       <h1 class="font-bold text-center text-4xl sm:w-full lg:text-5xl outline-0">Hamroh Taxi</h1>
       <p class="lg:text-xl text-center w-3/4">Ilovani yuklab oling va post joylang. Biz bilan tez va qulay hamroh toping!</p>
-      <button on:click={() => { navigate('/')}} class="btn bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white text-md md:textlg px-5 py-2 rounded-2xl shadow-sm font-bold">Yuklab olish</button>
-    </div>
-    <div class="mt-5 sm:mt-0">
-      <img class="img w-[250px] sm:w-[350px] md:[600px] lg:[600px]" src="./images/Smartphone.png" alt="" draggable="false">
+      <a href="https://play.google.com/store/apps/details?id=com.khusinov.hamrohtaxi" target="_blank" rel="noreferrer" class="btn bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white text-md md:textlg px-5 py-2 rounded-2xl shadow-sm font-bold">Yuklab olish</a>
     </div>
   </div>
  
   <div class="flex flex-col md:flex-row items-center justify-center gap-5 mt-[64px] w-full">
     <div class="">
-      <img class="img w-[350px] sm:w-[450px] md:[600px] lg:[600px]" src="./images/3682361.jpg" alt="" draggable="false">
+      <img class="img w-[250px] sm:w-[300px] md:w-[300px] lg:w-[400px] xl:w-[550px]" src="./images/3682361.jpg" alt="" draggable="false">
     </div>
-
     <div class="flex flex-col items-center gap-5">
       <h1 class="font-bold text-4xl lg:text-5xl outline-0">Hamroh Izlash</h1>
       <p class="fs-6 my-sm-3 lg:text-xl text-center ">Biz bilan tez va qulay hamroh toping !</p>
@@ -39,7 +38,7 @@
   </div>
 
 
-  <div class="flex flex-col md:flex-row items-center justiffy-center gap-5 my-[64px] w-full">
+  <div class="flex flex-col md:flex-row items-center justify-center gap-5 my-[64px] w-full">
     <div class="flex flex-col items-center gap-5 sm:w-1/2">
       <h1 class="font-bold text-4xl lg:text-5xl outline-0">Taxi Izlash</h1>
       <p class="fs-6 my-sm-3 lg:text-xl text-center ">Biz bilan tez va qulay taxi toping !</p>
@@ -47,7 +46,7 @@
         izlash</button>
     </div>
     <div class="">
-      <img class="img w-[250px] sm:w-[350px] md:[600px] lg:[600px]" src="./images/7119303_3411096.jpg" alt="">
+      <img class="img w-[250px] sm:w-[300px] md:w-[300px] lg:w-[400px] xl:w-[550px]" src="./images/7119303_3411096.jpg" alt="">
     </div>
   </div>
 
@@ -64,7 +63,7 @@
         </div>
       </div>
       <div class="sm:w-1/2">
-        <img src="./images/about-img.png" alt="" class="">
+        <img src="./images/about-img.png" alt="" class="img w-[250px] sm:w-[300px] md:w-[300px] lg:w-[400px] xl:w-[550px]">
       </div>
     </div>
   </section>
@@ -72,13 +71,13 @@
   <section class="contact flex items-center justify-center px-3 md:pb-8 sm:px-8">
     <div class="flex flex-col md:flex-row justify-around items-center p-5 xl:w-4/5 sm:gap-5 rounded-2xl bg-slate-200 shadow-lg my-5">
       <div class="">
-        <img src="./images/12982910_5124556-removebg-preview.png" alt="" class='w-full'>
+        <img src="./images/12982910_5124556-removebg-preview.png" alt="" class='img w-[250px] sm:w-[300px] md:w-[300px] lg:w-[400px] xl:w-[550p90'>
       </div>
       <div class="inline-flex flex-col gap-4 p-5 rounded">
         <p class="text-2xl font-semibold text-center">Biz bilan bog'lanish</p>
           <p class="text-center">Murojat va takliflar uchun biz bilan bog'laning</p>
-          <a href="tel:+998335789204" class="text-white bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% font-bold text-lg text-center rounded-2xl shadow-lg py-2 px-3 lg:py-3"><i class="bi bi-phone"></i> Phone</a>
-          <a href="mailto:info@hamrohtaxi.uz" class="text-white bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% font-bold text-lg text-center rounded-2xl shadow-lg py-2 px-3 lg:py-3"><i class="bi bi-envelope"></i> Email</a>
+          <a href="tel:+998905789204" class="text-white bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% font-bold text-lg text-center rounded-2xl shadow-lg py-2 px-3 lg:py-3"><i class="bi bi-phone"></i> Phone</a>
+          <a href="mailto:hamrohtaxi@gmail.com" class="text-white bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% font-bold text-lg text-center rounded-2xl shadow-lg py-2 px-3 lg:py-3"><i class="bi bi-envelope"></i> Email</a>
       </div>
     </div>
   </section>

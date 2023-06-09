@@ -145,20 +145,21 @@
       <img class="" src="./images/direction.svg" alt="">
     </div>
 
-        <div class="5 flex justify-between items-center">
-          <div class="flex flex-col items-start gap-2">
-            <div class="user flex items-start gap-1">
-              <img class="rounded-full" src="./images/pf-pic.jpeg" alt="" width="54px">
-              <span class="flex flex-col items-start">
-                <p class="text-sm lg:text-base xl:text-xl font-semibold">{author_name}</p>
-                <p class="text-xs lg:text-sm ">{userRole}</p>
-              </span>
-            </div>
-            <p class="go_time my-0 text-xs"><b>Posted time:</b> {posted_time}</p>
-          </div>
-          <a href="tel:{phone_number}" class="bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white text-xs md:text-sm font-semibold rounded-xl py-3 px-5"><i class="bi bi-telephone mr-2"></i> Hamroh
-            bo'lish</a>
+    <div class="flex flex-col gap-2 items-center w-full">
+      <div class="5 flex justify-between items-center w-full">
+        <div class="user flex items-start gap-1">
+          <img class="rounded-full" src="./images/pf-pic.jpeg" alt="" width="54px">
+          <span class="flex flex-col items-start">
+            <p class="text-sm lg:text-base xl:text-xl font-semibold">{author_name}</p>
+            <p class="text-xs lg:text-sm ">{userRole}</p>
+          </span>
         </div>
+        <a href="tel:{phone_number}" class="bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% text-white text-xs md:text-sm font-semibold rounded-xl py-3 px-5"><i class="bi bi-telephone mr-2"></i> Hamroh
+          bo'lish</a>
+      </div>
+      
+      <p class="go_time my-0 text-xs"><b>Post joylangan sana:</b> {posted_time}</p>
+    </div>
 
     </div>
 

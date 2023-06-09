@@ -165,7 +165,7 @@
         <p class="go_time my-0 text-xs"><b>Posted time:</b> {posted_time}</p>
       </div>
       <div class="flex flex-col gap-2">
-        <button on:click={() => { show_delete = true}} class="bg-red-500 text-white text-sm font-semibold rounded-xl py-2 px-5"><i class="bi bi-trash mr-2"></i>O'chirish</button>
+        <button on:click={() => { show_delete = true}} class="bg-red-500 text-white text-sm font-semibold rounded-xl py-2 px-5"><i class="bi bi-trash mr-2"></i>Tugatish</button>
         <button on:click={() => { show_edit = true}} class="bg-green-500 text-white text-sm font-semibold rounded-xl py-2 px-5"><i class="bi bi-pencil mr-2"></i>Tahrirlash</button>
       </div>
     </div>

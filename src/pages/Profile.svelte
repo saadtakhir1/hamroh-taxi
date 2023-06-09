@@ -76,7 +76,6 @@
         <div class="flex flex-col md:flex-row md:h-screen pt-[96px] pb-[64px] p-8 px-3 md:px-[64px] gap-5 ">
             <div class="sm:h-screen bg-white flex flex-col gap-3 md:border-r-2 pr-[40px]">
                 <div class="flex flex-row sm:flex-col justify-center items-center w-full gap-2">
-                    <img src="./images/pf-pic.jpeg" class="w-[120px]" alt="profile-pic">
                     <div class="flex flex-col items-center">
                         <p class="text-2xl font-semibold">{payload.name}</p>
                         <p>{#if payload.user_role == 0}
@@ -84,7 +83,7 @@
                             {:else}
                                 Haydovchi
                             {/if}</p>
-                        <button class="underline text-red-500" on:click={logOut}>Chiqish</button>
+                        <button class="underline text-red-500" on:click={logOut}><i class="bi bi-box-arrow-left"></i> Chiqish</button>
                     </div>
                 </div>
                 <div class="flex md:flex-col px-3 gap-3 text-lg">

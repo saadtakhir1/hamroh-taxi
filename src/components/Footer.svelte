@@ -29,17 +29,17 @@
           </div>
         </div>
         <div class="sitemap  flex flex-col justify-start gap-3 py-4">
-          <p class="text-lg text-white font-semibold m-0">Sayt xaritasi</p>
+          <p class="text-lg text-white font-semibold m-0">Qo'shimcha menu</p>
           <div class="flex flex-col items-start px-0">
             <button on:click={() => { navigate('/')}} class="text-sm font-medium text-decoration-none text-white p-1">Bosh sahifa</button>
             <button on:click={() => { navigate('/profile')}} class="text-sm font-medium text-decoration-none text-white p-1">Profile</button>
-            <button on:click={() => { navigate('/about')}}  class="text-sm font-medium text-decoration-none text-white p-1">Biz haqimizda</button>
+            <button on:click={() => { navigate('/drivers')}}  class="text-sm font-medium text-decoration-none text-white p-1">Taxi izlash</button>
           </div>
         </div>
         <div class="flex flex-col gap-3 justify-start py-4">
           <p class="text-white font-semibold m-0">Ilovani yuklab oling</p>
           <div class="flex flex-col rounded bg-white p-2 w-[fit-content]">
-            <a href="https" class=""><img src="./images/google-play.png" alt="" class="" width="120px"></a>
+            <a href="https://play.google.com/store/apps/details?id=com.khusinov.hamrohtaxi" target="_blank" rel="noreferrer" class=""><img src="./images/google-play.png" alt="" class="" width="120px"></a>
           </div>
         </div>
       </div>
