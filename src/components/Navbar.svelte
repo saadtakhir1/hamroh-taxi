@@ -4,7 +4,6 @@
   import { getUserPosts } from '../api/posts.api'
 
   const access = localStorage.getItem('access')
-  let payload: any = JSON.parse(localStorage.getItem('payload'))
   let showMenu = false
   let user_name: boolean = false
 

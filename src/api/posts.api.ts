@@ -4,7 +4,7 @@ const URL = 'http://185.105.91.162/api/'
 
 // get all posts
 export async function getAllPosts() {
-    return await axios.get(URL + `posts-list/`)    
+    return await axios.get(URL + `posts-list/?limit=1000`)    
 }
 
 // filter posts
@@ -35,7 +35,7 @@ export async function getPostsByFilter(from_location: string, to_location: strin
 
 // get user posts
 export async function getUserPosts(access: string) {
-    return await axios.get(URL + `posts/`, { headers: {
+    return await axios.get(URL + `posts/?limit=12`, { headers: {
         'Authorization': `Bearer ${access}`
     }})
 }

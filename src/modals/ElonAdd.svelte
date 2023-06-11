@@ -41,6 +41,7 @@
             await createPost(access, payload.user_role, districtdan.toString(), districtga.toString(), go_date.toString(), +count, price, addition.toString())
             const res = await getUserPosts(access)
             const user_posts: Post[] = res.data.results
+            user_posts.sort((a, b) => b.status - a.status)
             userPostsStore.set(user_posts)
             close()
         } catch(err: any) {

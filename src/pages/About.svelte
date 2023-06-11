@@ -39,9 +39,9 @@
           <p class="text-xl text-center font-semibold m-0">Frontend Developer</p>
           <p class="fs-5 m-0">Saad Takhir</p>
           <div class="flex gap-3 p-3">
-            <a href="/" class=""><i class="bi bi-instagram text-xl"></i></a>
-            <a href="/" class=""><i class="bi bi-telegram text-xl"></i></a>
-            <a href="/" class=""><i class="bi bi-youtube text-xl"></i></a>
+            <a href="https://instagram.com/saad_takhir" target="_blank" class=""><i class="bi bi-instagram text-xl"></i></a>
+            <a href="https://t.me/saad_takhir" target="_blank" class=""><i class="bi bi-telegram text-xl"></i></a>
+            <a href="https://youtube.com/@saadtakhir" class=""><i class="bi bi-youtube text-xl"></i></a>
           </div>
         </div>
         <div class="flex flex-col items-center p-5 rounded-xl bg-gradient-to-b from-yellow-400 from-1% to-yellow-700 to-100% text-white shadow-md">
@@ -49,9 +49,9 @@
           <p class="text-xl text-center font-semibold m-0">Backend Developer</p>
           <p class="fs-5 m-0">Doniyor Samandarov</p>
           <div class="flex gap-3 p-3">
-            <a href="/" class=""><i class="bi bi-instagram text-xl"></i></a>
-            <a href="/" class=""><i class="bi bi-telegram text-xl"></i></a>
-            <a href="/" class=""><i class="bi bi-youtube text-xl"></i></a>
+            <a href="https://instagram.com/c_don1yor" target="_blank" class=""><i class="bi bi-instagram text-xl"></i></a>
+            <a href="https://t.me/c_don1yor" target="_blank" class=""><i class="bi bi-telegram text-xl"></i></a>
+            <a href="/" target="_blank" class=""><i class="bi bi-youtube text-xl"></i></a>
           </div>
         </div>
         <div class="flex flex-col items-center p-5 rounded-xl bg-gradient-to-b from-yellow-400 from-1% to-yellow-700 to-100% text-white shadow-md">
@@ -59,9 +59,9 @@
           <p class="text-xl text-center font-semibold m-0">Android Developer</p>
           <p class="fs-5 m-0">Shaxriyor Xusinov</p>
           <div class="flex gap-3 p-3">
-            <a href="/" class=""><i class="bi bi-instagram text-xl"></i></a>
-            <a href="/" class=""><i class="bi bi-telegram text-xl"></i></a>
-            <a href="/" class=""><i class="bi bi-youtube text-xl"></i></a>
+            <a href="https://instagram.com/shakhriyor_xusinov" target="_blank" class=""><i class="bi bi-instagram text-xl"></i></a>
+            <a href="https://t.me/Xusinov" target="_blank" class=""><i class="bi bi-telegram text-xl"></i></a>
+            <a href="https://youtube.com/@codingwithshahriyor" target="_blank" class=""><i class="bi bi-youtube text-xl"></i></a>
           </div>
         </div>
       </div>

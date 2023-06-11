@@ -1,7 +1,7 @@
 <script lang="ts">
     import { getDistricts, getRegions } from "../api/locations.api"
     import { regionsStore, districtsStore } from "../store/location.store"
-    import { editPost } from '../api/posts.api'
+    import { editPost, getUserPosts } from '../api/posts.api'
     import { Post, userPostsStore } from "../store/posts.store";
 
     export let show: boolean
@@ -45,7 +45,11 @@
 
     async function edit_post() {
         try{
-            const res = await editPost(id, access, user_role, from_loc, to_loc, go_time, count, price, addition)
+            await editPost(id, access, user_role, from_loc, to_loc, go_time, count, price, addition)
+            const res_user = await getUserPosts(access)
+            const user_posts: Post[] = res_user.data.results
+            user_posts.sort((a, b) => b.status - a.status)
+            userPostsStore.set(user_posts)
             close()
         } catch(err: any) {
             console.log(err)
@@ -59,7 +63,7 @@
 <div class={"h-screen w-screen bg-black/70 fixed top-0 left-0 bottom-0 right-0 z-[999] justify-center items-center " + (show ? "flex" : "hidden")}>
     <div class="bg-white p-8 flex flex-col gap-3 h-full w-screen md:h-[fit-content] md:w-[fit-content] md:rounded-md shadow-md overflow-y-auto">
 
-        <p class="text-xl text-center font-bold">Elonni o'zgartirish</p>
+        <p class="text-xl text-center font-bold">Elonni tahrirlash</p>
 
         <div class="flex flex-col gap-3">
             <div class="flex flex-col gap-2">

@@ -77,6 +77,7 @@
             <div class="sm:h-screen bg-white flex flex-col gap-3 md:border-r-2 pr-[40px]">
                 <div class="flex flex-row sm:flex-col justify-center items-center w-full gap-2">
                     <div class="flex flex-col items-center">
+                        <img class="w-[100px]" alt="user-pic" src="./images/userpic.png"/>
                         <p class="text-2xl font-semibold">{payload.name}</p>
                         <p>{#if payload.user_role == 0}
                                 Yo'lovchi

@@ -20,7 +20,11 @@
       try{
         const res = await getAllPosts()
         const posts: Post[] = res.data.results
-        drivPostsStore.set(posts.filter(post => post.user_role == 1))
+        drivPostsStore.set(posts.filter(post => {
+          if(post.user_role == 1 && post.status == 1){
+            return post
+          }
+        }))
       }catch(err: any) {
         console.log(err)
       }
@@ -159,7 +163,7 @@
     </div>
    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 place-items-center w-full">
     {#each $drivPostsStore as post}
-      <Elon posted_time={post.posted_time} phone_number={post.user.phone_number} price={post.price} author_name={post.user.name} user_role={post.user_role} from_loc={post.from_location} to_loc={post.to_location} go_time={post.go_time} count={post.count} addition={post.addition}></Elon>
+      <Elon phone_number={post.user.phone_number} price={post.price} author_name={post.user.name} user_role={post.user_role} from_loc={post.from_location} to_loc={post.to_location} go_time={post.go_time} count={post.count} addition={post.addition}></Elon>
     {/each} 
    </div>
   

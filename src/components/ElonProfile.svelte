@@ -6,12 +6,20 @@
   export let from_loc: string
   export let to_loc: string
   export let go_time: string
-  export let posted_time: string
+  export let status: number
   export let count: number
   export let addition: string
   export let user_role: number
   export let price: string
   export let id: number
+
+  let userRole: string
+
+  let status_text: string
+  let status_color: string
+  let btn_delete: string
+  let btn_edit: string
+  let btn_disabled: boolean = false
 
   let month: string
   let date = go_time.split(' ')[0]
@@ -47,12 +55,23 @@
 
   findMonth()
 
-  let userRole: string
-
   if(user_role == 0) {
     userRole = "Yo'lovchi"
   } else{
     userRole = "Haydovchi"
+  }
+
+  if(status == 1) {
+    status_text = "Faol"
+    status_color = "text-green-500"
+    btn_delete = "bg-red-500"
+    btn_edit = "bg-green-500"
+  }else{
+    status_text = "Tugatilgan"
+    status_color = "text-red-500"
+    btn_disabled = true
+    btn_delete = "bg-red-200"
+    btn_edit = "bg-green-200"
   }
 
   let from_arr = from_loc.split(' ')
@@ -155,18 +174,21 @@
     <!-- user -->
     <div class="5 flex justify-between items-center">
       <div class="flex flex-col items-start gap-2">
-        <div class="user flex items-start gap-1">
-          <img class="rounded-full" src="./images/pf-pic.jpeg" alt="" width="54px">
-          <span class="flex flex-col items-start">
+        <div class="user flex items-center gap-1">
+          <img class="rounded-full" src="./images/userpic.png" alt="" width="54px">
+          <span class="flex flex-col justify-center">
             <p class="text-sm lg:text-base xl:text-xl font-semibold">{author_name}</p>
             <p class="text-xs lg:text-sm ">{userRole}</p>
           </span>
         </div>
-        <p class="go_time my-0 text-xs"><b>Posted time:</b> {posted_time}</p>
+        <div class="flex items-center gap-2">
+          <p class="my-0 text-xs font-bold">Status:</p>
+          <p class={"my-0 text-xs " + status_color}>{status_text}</p>
+        </div>
       </div>
       <div class="flex flex-col gap-2">
-        <button on:click={() => { show_delete = true}} class="bg-red-500 text-white text-sm font-semibold rounded-xl py-2 px-5"><i class="bi bi-trash mr-2"></i>Tugatish</button>
-        <button on:click={() => { show_edit = true}} class="bg-green-500 text-white text-sm font-semibold rounded-xl py-2 px-5"><i class="bi bi-pencil mr-2"></i>Tahrirlash</button>
+        <button disabled={btn_disabled} on:click={() => { show_delete = true}} class="{btn_delete} text-white text-sm font-semibold rounded-xl py-2 px-5"><i class="bi bi-trash mr-2"></i>Tugatish</button>
+        <button disabled={btn_disabled} on:click={() => { show_edit = true}} class="{btn_edit} text-white text-sm font-semibold rounded-xl py-2 px-5"><i class="bi bi-pencil mr-2"></i>Tahrirlash</button>
       </div>
     </div>
 
