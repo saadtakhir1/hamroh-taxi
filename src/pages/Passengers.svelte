@@ -4,8 +4,8 @@
   import Footer from '../components/Footer.svelte'
   import Elon from '../components/Elon.svelte'
   // functions
-  import { getAllPosts, getPostsByFilter } from '../api/posts.api'
-  import { getRegions, getDistricts } from '../api/locations.api'
+  import { PostEndpoint } from '../api/api'
+  
   // stores
   import { passPostsStore } from '../store/posts.store'
   import { regionsStore, districtsStore } from '../store/location.store'
@@ -16,29 +16,29 @@
 
   // get passengers posts
   async function getPosts() {
-    try{
-      const res = await getAllPosts()
-      const posts: Post[] = res.data.results
-      passPostsStore.set(posts.filter(post => {
-        if(post.user_role == 0 && post.status == 1){
-            return post
-          }
-      }))
-    }catch(err: any) {
-      console.log(err)
-    }
+    // try{
+    //   const res = await getAllPosts()
+    //   const posts: Post[] = res.data.results
+    //   passPostsStore.set(posts.filter(post => {
+    //     if(post.user_role == 0 && post.status == 1){
+    //         return post
+    //       }
+    //   }))
+    // }catch(err: any) {
+    //   console.log(err)
+    // }
   }
 
   // get locations
   async function getLocations() {
-    try{
-      const reg = await getRegions()
-      const dis = await getDistricts()
-      regionsStore.set(reg.data)
-      districtsStore.set(dis.data)
-    }catch(err: any){
-      console.log(err)
-    }
+    // try{
+    //   const reg = await getRegions()
+    //   const dis = await getDistricts()
+    //   regionsStore.set(reg.data)
+    //   districtsStore.set(dis.data)
+    // }catch(err: any){
+    //   console.log(err)
+    // }
   }
 
   // tumanlar filteri uchun o'zgaruvchilar
@@ -55,15 +55,15 @@
     }
 
   async function filter() {
-    try{
-      const res = await getPostsByFilter(from_dis, to_dis, go_time, count)
-      const posts: Post[] = res.data.results
-      console.log(posts)
-      passPostsStore.set(posts.filter(post => post.user_role == 0))
-      console.log($passPostsStore)
-    } catch(err: any) {
-      console.log(err)
-    }
+    // try{
+    //   const res = await getPostsByFilter(from_dis, to_dis, go_time, count)
+    //   const posts: Post[] = res.data.results
+    //   console.log(posts)
+    //   passPostsStore.set(posts.filter(post => post.user_role == 0))
+    //   console.log($passPostsStore)
+    // } catch(err: any) {
+    //   console.log(err)
+    // }
 
   }
 

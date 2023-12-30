@@ -1,24 +1,27 @@
 import axios from "axios"
 
-const URL = 'http://185.105.91.162/api/'
+const URL = 'http://localhost:4802/api'
 
 export type LoginDto = {
-    phone_number: string,
+    phone: string,
     password: string
 }
 
 export type RegisterDto = {
     name: string, 
-    phone_number: string, 
-    user_role: number,
-    password: string
+    phone: string, 
+    email: string,
+    role: string,
+    password: string,
+    carNumber: string | null,
+    carType: string | null
 }
 
 export async function authLogin(dto: LoginDto) {
-    return await axios.post(URL + `auth/login/`, dto)
+    return await axios.post(URL + `/user/login`, dto)
 }
 
 export async function authRegister(dto: RegisterDto) {
-    return await axios.post(URL + 'auth/signup/', dto)
+    return await axios.post(URL + '/user/register', dto)
 }
 

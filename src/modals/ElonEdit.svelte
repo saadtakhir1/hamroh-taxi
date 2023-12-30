@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { getDistricts, getRegions } from "../api/locations.api"
     import { regionsStore, districtsStore } from "../store/location.store"
-    import { editPost, getUserPosts } from '../api/posts.api'
+    import { PostEndpoint } from '../api/api'
     import { Post, userPostsStore } from "../store/posts.store";
 
     export let show: boolean
     export let close: () => void
+
+    const postEndpoint = new PostEndpoint()
 
     export let from_loc: string
     export let to_loc: string
@@ -19,14 +20,14 @@
     const access = localStorage.getItem('access')
 
     async function getLocations() {
-        try{
-        const reg = await getRegions()
-        const dis = await getDistricts()
-        regionsStore.set(reg.data)
-        districtsStore.set(dis.data)
-        }catch(err: any){
-        console.log(err)
-        }
+        // try{
+        // const reg = await getRegions()
+        // const dis = await getDistricts()
+        // regionsStore.set(reg.data)
+        // districtsStore.set(dis.data)
+        // }catch(err: any){
+        // console.log(err)
+        // }
     }
 
     let region_dan: HTMLSelectElement
@@ -44,16 +45,16 @@
     }
 
     async function edit_post() {
-        try{
-            await editPost(id, access, user_role, from_loc, to_loc, go_time, count, price, addition)
-            const res_user = await getUserPosts(access)
-            const user_posts: Post[] = res_user.data.results
-            user_posts.sort((a, b) => b.status - a.status)
-            userPostsStore.set(user_posts)
-            close()
-        } catch(err: any) {
-            console.log(err)
-        }
+        // try{
+        //     await editPost(id, access, user_role, from_loc, to_loc, go_time, count, price, addition)
+        //     const res_user = await getUserPosts(access)
+        //     const user_posts: Post[] = res_user.data.results
+        //     user_posts.sort((a, b) => b.status - a.status)
+        //     userPostsStore.set(user_posts)
+        //     close()
+        // } catch(err: any) {
+        //     console.log(err)
+        // }
     }
     
     getLocations()
@@ -67,7 +68,7 @@
 
         <div class="flex flex-col gap-3">
             <div class="flex flex-col gap-2">
-                <label class="font-semibold" for="">Yo'nalish*:</label>
+                <label class="font-semibold" for="">Yo'nalish*: {user_role + id}</label>
                 <span class="flex flex-col md:flex-row gap-2">
                     dan
                     <select on:change={() => {addDistrictsFrom(region_dan.value)}}  class="outline-0 border-2 px-3 py-1 rounded" name="" id="" bind:this={region_dan}>

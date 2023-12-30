@@ -2,7 +2,7 @@
 
   export let showme: boolean
 
-  let payload = JSON.parse(localStorage.getItem('payload'))
+  let user = JSON.parse(localStorage.getItem('user'))
 
 </script>
 
@@ -13,19 +13,23 @@
     </div>
     <div class="flex justify-between border-b-2">
       <p class="text-md font-semibold">Ism:</p>
-      <span class="">{payload.name}</span>
+      <span class="">{user.profile.userName}</span>
     </div>
     <div class="flex justify-between border-b-2">
       <p class="text-md font-semibold">Telefon raqam:</p>
-      <span class="">{payload.phone_number}</span>
+      <span class="">{user.profile.userPhone}</span>
     </div>
     <div class="flex justify-between border-b-2">
       <p class="text-md font-semibold">Roli:</p>
-      <span class="">{#if payload.user_role == 0}
-        Yo'lovchi
-    {:else}
-        Haydovchi
-    {/if}</span>
+      <span class="">
+        {#if user.role == 'passenger'}
+          Yo'lovchi
+        {:else if user.role == 'admin'}
+          Admin
+        {:else}
+          Haydovchi
+        {/if}
+      </span>
     </div>
   </div>
 </div>

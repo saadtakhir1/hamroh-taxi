@@ -1,16 +1,18 @@
 <script lang="ts">
     import { navigate } from 'svelte-navigator';
     import { authRegister, authLogin, LoginDto, RegisterDto } from '../api/auth.api'
-    import { CarDto, createCar } from '../api/car.api'
     import Alert from '../modals/Alert.svelte'
+
+    document.body.classList.add('bg-indigo-500')
 
     // register uchun o'zgaruvchilar
     let name: HTMLInputElement
     let phone: HTMLInputElement
+    let email: HTMLInputElement
     let password: HTMLInputElement
-    let selectRole: HTMLSelectElement
-    let car_number: HTMLInputElement
-    let car_model: HTMLInputElement
+    let role: HTMLSelectElement
+    let carNumber: HTMLInputElement
+    let carType: HTMLSelectElement
     let errTextPass: string
 
     // tekshirish uchun o'zgaruvchilar
@@ -20,7 +22,7 @@
     let carRegIsTrue: boolean = false
 
     function checkName(name_value: string) {
-        if(name_value.length === 0){
+        if(name_value.length < 3){
             nameIsTrue = false
             name.style.border = '1px red solid'
         }else{
@@ -48,7 +50,6 @@
         else if(password.value.toString().includes(' ')){
             passIsTrue = false
             password.style.border = "1px solid red"
-            password.style.border = "1px solid red"
             errTextPass = "Parolda bo'sh joy bo'lishi mumkin emas"
         }else{
             passIsTrue = true
@@ -58,7 +59,7 @@
     }    
 
     function showCarReg(){
-        if(+selectRole.value == 1){
+        if(+role.value == 1){
             carRegIsTrue = true
         }else{
             carRegIsTrue = false
@@ -66,20 +67,18 @@
     }
 
     function upperCaseCarNum(){
-        let currentValue = car_number.value;
+        let currentValue = carNumber.value;
         if(currentValue.length > 8){
             currentValue = currentValue.slice(0, 8);
         }     
-        car_number.value = currentValue.toUpperCase();  
+        carNumber.value = currentValue.toUpperCase();  
     }
 
     let showAlert: boolean = false
     let text: string
     let color: string
 
-    function closeAlert() {
-        showAlert = false
-    }
+    function closeAlert() { showAlert = false }
 
     function addAlert(errText: string, alertColor: string, show: boolean) {
         text = errText
@@ -87,77 +86,37 @@
         showAlert = show
         setTimeout(closeAlert, 10000)
     }
+
+    const carTypes = ['Damas','Largus','Tico','Matiz','Nexia_1','Nexia_2','Nexia_3','Lacetti','Captiva','Epica','Tacuma','Spark','Cobalt','Orlondo','Gentra','Boshqa']
     
-    async function onRegister() {
+    async function register() {
         if(nameIsTrue === true && phoneIsTrue === true && passIsTrue === true) {
-            const user_data: RegisterDto = { 
-                name: name.value.toString(), 
-                phone_number: "+998" + phone.value.toString(), 
-                password: password.value.toString(), 
-                user_role: +selectRole.value 
+            let user_data: RegisterDto = {
+                name: name.value.toString(),
+                phone: "+998" + phone.value.toString(),
+                password: password.value.toString(),
+                role: +role.value == 1 ? 'driver' : 'passenger',
+                email: email.value.toString(),
+                carNumber: carRegIsTrue ? carNumber.value : null,
+                carType: carRegIsTrue ? carType.value : null
             }
-            if(carRegIsTrue) {
-                const car_data: CarDto = { 
-                    car_model: car_model.value.toString(), 
-                    car_number: car_number.value.toString() 
-                }
-                const login_data: LoginDto = {
-                    phone_number: user_data.phone_number,
-                    password: user_data.password
-                }
-
-                try {
-                    const res = await authRegister(user_data)
-                    const created_car  = await createCar(res.data.access, car_data) 
-                    const created_user = await authLogin(login_data)
-                    const access = created_user.data.access
-                    const refresh = created_user.data.refresh
-                    const payload = created_user.data.user
-                    const car = created_car.data
-                    localStorage.setItem('payload', JSON.stringify(payload))
-                    localStorage.setItem('access', access) 
-                    localStorage.setItem('refresh', refresh) 
-                    localStorage.setItem('car', JSON.stringify(car)) 
-                    navigate('/')
-                } catch(err: any){
-                    addAlert(err.response.data.error, 'red', true)
-                    console.log(err)
-                }
+            try {
+                const res = await authRegister(user_data)
+                const access = res.data.access
+                const refresh = res.data.refresh
+                const user = res.data.user
+                localStorage.setItem('user', JSON.stringify(user))
+                localStorage.setItem('access', access) 
+                localStorage.setItem('refresh', refresh)
+                document.body.classList.remove('bg-indigo-500')
+                navigate('/')
+            } catch(err: any){
+                addAlert(err.response.data.message, 'red', true)
             }
-            else{
-                try{
-                    await authRegister(user_data)
-                    const login_data: LoginDto = {
-                        phone_number: user_data.phone_number,
-                        password: user_data.password
-                    }
-                    const created_user = await authLogin(login_data)
-
-                    const access = created_user.data.access
-                    const refresh = created_user.data.refresh
-                    const payload = created_user.data.user
-                    localStorage.setItem('payload', JSON.stringify(payload))
-                    localStorage.setItem('access', access) 
-                    localStorage.setItem('refresh', refresh)  
-                    navigate('/')         
-                }catch(err: any) {
-                    addAlert(err.response.data.error, 'red', true)
-                    console.log(err)
-                }
-            }
+        }
                 
-            }else{
-                console.log('hello')
-            }
     }
-
-    let body = document.body
-
-    function addBodyColor() {
-        body.classList.add('bg-indigo-900')
-    }
-
-    addBodyColor()
+    let btn_passenger: HTMLButtonElement
 
 </script>
 
@@ -178,25 +137,33 @@
             <div class="flex flex-col gap-3">
                 <p class="font-semibold pl-3 border-l-4 border-indigo-900">Foydalanuvchi malumotlari:</p>
                 <span class="flex flex-col gap-1">
-                    <label class="font-semibold" for="name">Name:</label>
-                    <input on:change={() => { checkName(name.value)}} bind:this={name} class="outline-0 rounded-md border-2 py-1 px-3" type="text" name="name" id="" placeholder="John Doe">
+                    <label class="font-semibold" for="ism">Name:</label>
+                    <input on:change={() => { checkName(name.value)}} bind:this={name} class="outline-0 rounded-md border-2 py-1 px-3" type="text" name="ism" id="ism" placeholder="John Doe">
                 </span>
                 <span class="flex flex-col gap-1">
                     <label class="font-semibold" for="raqam">Phone:</label>
                     <span class="flex flex-row w-full">
-                        <input on:change={() => { checkPhone(phone.value)}} bind:this={phone} class="outline-0 rounded-md border-2 py-1 px-3 grow" type="phone" name="raqam" id="" placeholder="905550055">
+                        <input on:change={() => { checkPhone(phone.value)}} bind:this={phone} class="outline-0 rounded-md border-2 py-1 px-3 grow" type="phone" name="raqam" id="raqam" placeholder="905550055">
                     </span>
                 </span>
                 <span class="flex flex-col gap-1">
+                    <label class="font-semibold" for="email">Email:</label>
+                    <input on:change={() => {}} bind:this={email} class="outline-0 rounded-md border-2 py-1 px-3" type="email" name="email" id="email" placeholder="example@gmail.com">
+                </span>
+                <span class="flex flex-col gap-1">
                     <label class="font-semibold" for="parol">Parol:</label>
-                    <input on:change={checkPassword} bind:this={password} class="outline-0 rounded-md border-2 py-1 px-3" type="password" name="parol" id="" placeholder="****">
+                    <input on:change={checkPassword} bind:this={password} class="outline-0 rounded-md border-2 py-1 px-3" type="password" name="parol" id="parol" placeholder="****">
                 </span>
                 {#if errTextPass}
                     <p class="font-semibold text-red-500">{errTextPass}</p>
                 {/if}
                 <span class="flex flex-col gap-1">
-                    <label class="font-semibold" for="parol">Kimsiz:</label>
-                    <select bind:this={selectRole} on:change={showCarReg} class="outline-0 rounded-md border-2 py-1 px-3" name="" id="">
+                    <span class="flex gap-3 items-center">
+                        <p>Kimsiz</p>
+                        <button bind:this={btn_passenger} on:click={() => { btn_passenger.classList.add('bg-slate-300') }} class="border-2 py-2 px-3 rounded-xl">Yo'lovchi</button>
+                        <button bind:this={btn_passenger} on:click={() => { btn_passenger.classList.add('bg-slate-300') }} class="border-2 py-2 px-3 rounded-xl">Haydovchi</button>
+                    </span>
+                    <select bind:this={role} on:change={showCarReg} class="outline-0 rounded-md border-2 py-1 px-3" name="role" id="role">
                         <option class="outline-0 rounded-md border-2 py-1 px-3" value="0">Yo'lovchi</option>
                         <option class="outline-0 rounded-md border-2 py-1 px-3" value="1">Haydovchi</option>
                     </select>
@@ -206,20 +173,24 @@
                     <div class="flex flex-col sm:flex-row gap-2">
                         <span class="flex flex-col gap-1">
                             <label class="font-semibold" for="">Davlat raqami:</label>
-                            <input  on:input={upperCaseCarNum} bind:this={car_number} class="outline-0 rounded-md border-2 py-1 px-3" type="text" name="" id="" placeholder="90A090AA">
+                            <input  on:input={upperCaseCarNum} bind:this={carNumber} class="outline-0 rounded-md border-2 py-1 px-3" type="text" name="" id="" placeholder="90A090AA">
                         </span>
                         <span class="flex flex-col gap-1">
                             <label class="font-semibold" for="carType">Rusumi:</label>
-                            <input bind:this={car_model} class="outline-0 rounded-md border-2 py-1 px-3" type="text" name="carType" id="" placeholder="Matiz">
+                            <select class="outline-0 rounded-md border-2 py-1 px-3" bind:this={carType} name="carType" id="">
+                                {#each carTypes as type}
+                                    <option value="{type}">{type}</option>
+                                {/each}
+                            </select>
                         </span>
                     </div>
                 {/if}
                 <span class="flex flex-col justify-center gap-2">
-                    <button on:click={onRegister} class="py-2 px-4 text-lg rounded-md text-white bg-indigo-900">Ro'yhatdan o'tish</button>
+                    <button on:click={register} class="py-2 px-4 text-lg rounded-md text-white bg-indigo-900">Ro'yhatdan o'tish</button>
                 </span>
                 <span class="flex flex-col md:flex-row gap-2 justify-center">
                     <p class="text-center">Akkaunt mavjud bo'lsa:</p>
-                    <a href="/login" class="underline decoration-sky-900 text-sky-900 font-semibold text-center">Kirish</a>
+                    <button on:click={() => { navigate('/login') }} class="underline decoration-sky-900 text-sky-900 font-semibold text-center">Kirish</button>
                 </span>
             </div>
         </div>

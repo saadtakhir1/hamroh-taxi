@@ -7,31 +7,31 @@
     import Elonlarim from "../components/Elonlarim.svelte"
 
     import { navigate } from 'svelte-navigator'
-    import { getUserPosts } from '../api/posts.api'
+    import { UserEndpoint } from '../api/api'
     
     const access  = localStorage.getItem('access')
     
-    async function checkAccess() {
-        try{
-            await getUserPosts(access)
-        }catch(err: any){
-            navigate('/login')
-        }
-    }
+    // async function checkAccess() {
+    //     try{
+    //         await getUserPosts(access)
+    //     }catch(err: any){
+    //         navigate('/login')
+    //     }
+    // }
 
-    if(access) {
-        checkAccess()
-    } else {
-        navigate('/login')
-    }
+    // if(access) {
+    //     checkAccess()
+    // } else {
+    //     navigate('/login')
+    // }
 
-    const payload = JSON.parse(localStorage.getItem('payload'))
+    const user = JSON.parse(localStorage.getItem('user'))
 
     let showInfo: boolean = true;
     let carInfo: boolean = false;
     let showAd: boolean = false;
 
-    if(payload.user_role == 1 && showInfo == true) {
+    if(user.car != null) {
         carInfo = true
     }
 
@@ -78,9 +78,11 @@
                 <div class="flex flex-row sm:flex-col justify-center items-center w-full gap-2">
                     <div class="flex flex-col items-center">
                         <img class="w-[100px]" alt="user-pic" src="./images/userpic.png"/>
-                        <p class="text-2xl font-semibold">{payload.name}</p>
-                        <p>{#if payload.user_role == 0}
+                        <p class="text-2xl font-semibold">{user.profile.userName}</p>
+                        <p>{#if user.role == "passenger"}
                                 Yo'lovchi
+                            {:else if user.role == "admin"}
+                                Admin
                             {:else}
                                 Haydovchi
                             {/if}</p>

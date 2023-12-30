@@ -1,24 +1,35 @@
 <script lang="ts">
 
   import { navigate } from "svelte-navigator"
-  import { getUserPosts } from '../api/posts.api'
+  import { UserEndpoint } from '../api/api'
 
+  const userEndpoint = new UserEndpoint()
   const access = localStorage.getItem('access')
+  const refresh = localStorage.getItem('refresh')
   let showMenu = false
   let user_name: boolean = false
 
   async function checkUser(){
-    const res = await getUserPosts(access)
-    if(res.status == 200){
+    try {
+      const res = await userEndpoint.verify(access)
+      const user = res.data.user
+      localStorage.setItem('user', JSON.stringify(user))
       user_name = true
-    }else{
-      user_name = false
+    } catch(e) {
+      try {
+        const res = await userEndpoint.refresh(refresh)
+        const accessToken = res.data.access
+        const refreshToken = res.data.refresh
+        const user = res.data.user
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('access', accessToken) 
+        localStorage.setItem('refresh', refreshToken)
+        user_name = true
+      } catch (e) {
+        user_name = false
+      }
     }
-  }
-
-  checkUser()
-
-  
+  }  checkUser()
 
 </script>
 

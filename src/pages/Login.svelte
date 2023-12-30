@@ -1,7 +1,6 @@
 <script lang="ts">
     import { navigate } from "svelte-navigator";
     import { LoginDto, authLogin } from "../api/auth.api"
-    import { getCar } from "../api/car.api";
     import Alert from "../modals/Alert.svelte"
 
 
@@ -23,39 +22,22 @@
     let phone: string
     let password: string
 
-    async function login(phone: string, password: string) {
+    async function login() {
         try {
             const dto: LoginDto = {
-                phone_number: '+998' + phone.toString(),
+                phone: '+998' + phone.toString(),
                 password: password.toString()
             }
             const res = await authLogin(dto)
-            const payload = res.data.user
+            const user = res.data.user
             const access = res.data.access
             const refresh = res.data.refresh
-            if(payload.user_role == 1) {
-                try{
-                    const res = await getCar(access)
-                    const car = res.data[0]
-                    localStorage.setItem('payload', JSON.stringify(payload))
-                    localStorage.setItem('access', access)
-                    localStorage.setItem('refresh', refresh)
-                    localStorage.setItem('car', JSON.stringify(car))
-                    navigate('/')
-                } catch(err: any) {
-                    console.log(err)
-                }
-            }else{
-                localStorage.setItem('payload', JSON.stringify(payload))
-                localStorage.setItem('access', access)
-                localStorage.setItem('refresh', refresh)
-                navigate('/')
-            }
-            
-        }
-        catch(err: any) {
+            localStorage.setItem('user', JSON.stringify(user))
+            localStorage.setItem('access', access)
+            localStorage.setItem('refresh', refresh)
+            navigate('/')
+        } catch(err: any) {
             addAlert(err.response.data.errors[0].detail, 'red', true)
-            console.log(err)
         }
     }
 
@@ -85,7 +67,7 @@
                     <input bind:value={password} class="outline-0 rounded-md border-2 py-1 px-3" type="password" name="parol" id="" placeholder="****">
                 </span>
                 <span class="flex flex-col gap-2 justify-center">
-                    <button on:click={() => { login(phone, password) }} class="py-2 px-4 text-lg rounded-md font-semibold text-white bg-indigo-900">Kirish</button>
+                    <button on:click={login} class="py-2 px-4 text-lg rounded-md font-semibold text-white bg-indigo-900">Kirish</button>
                     <!-- <a class="py-2 px-4 rounded-md text-red-900 font-semibold text-center" href="/reset-password">Parolni tiklash</a> -->
                 </span>
                 <span class="flex flex-col md:flex-row gap-2">

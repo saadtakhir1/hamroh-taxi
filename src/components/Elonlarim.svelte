@@ -1,20 +1,20 @@
 <script lang="ts">
     import ElonAdd from "../modals/ElonAdd.svelte"
     import ElonProfile from "./ElonProfile.svelte"
-    import { getUserPosts } from "../api/posts.api";
+    import { PostEndpoint } from "../api/api";
     import { Post, userPostsStore } from "../store/posts.store"
 
     const access = localStorage.getItem('access')
     async function getPosts() {
-        try{
-            const res = await getUserPosts(access)
-            const user_posts: Post[] = res.data.results
-            user_posts.sort((a, b) => b.status - a.status)
-            userPostsStore.set(user_posts)
-        }
-        catch(err: any) {
-            console.log(err)
-        }
+        // try{
+        //     const res = await getUserPosts(access)
+        //     const user_posts: Post[] = res.data.results
+        //     user_posts.sort((a, b) => b.status - a.status)
+        //     userPostsStore.set(user_posts)
+        // }
+        // catch(err: any) {
+        //     console.log(err)
+        // }
     }
 
     export let showme: boolean

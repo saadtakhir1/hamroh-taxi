@@ -1,25 +1,25 @@
 <script lang="ts">
     import { getDistricts, getRegions } from "../api/locations.api"
     import { regionsStore, districtsStore } from "../store/location.store"
-    import { createPost, getUserPosts } from '../api/posts.api'
+    import { PostEndpoint } from '../api/api'
     import { Post, userPostsStore } from "../store/posts.store";
 
     export let show: boolean
     export let close: () => void
 
+    const postEndpoint = new PostEndpoint()
+
     const access = localStorage.getItem('access')
     const payload = JSON.parse(localStorage.getItem('payload'))
 
-    async function getLocations() {
-        try{
-        const reg = await getRegions()
-        const dis = await getDistricts()
-        regionsStore.set(reg.data)
-        districtsStore.set(dis.data)
-        }catch(err: any){
-        console.log(err)
-        }
-    }
+    // async function getLocations() {
+    //     try{
+    //     regionsStore.set(reg.data)
+    //     districtsStore.set(dis.data)
+    //     }catch(err: any){
+    //     console.log(err)
+    //     }
+    // }
 
     let region_dan: HTMLSelectElement
     let region_ga: HTMLSelectElement
@@ -36,20 +36,20 @@
         district_ga  = $regionsStore.filter(reg => reg.region_uz == region_uz)[0].id
     }
 
-    async function post() {
-        try{
-            await createPost(access, payload.user_role, districtdan.toString(), districtga.toString(), go_date.toString(), +count, price, addition.toString())
-            const res = await getUserPosts(access)
-            const user_posts: Post[] = res.data.results
-            user_posts.sort((a, b) => b.status - a.status)
-            userPostsStore.set(user_posts)
-            close()
-        } catch(err: any) {
-            console.log(err)
-        }
-    }
+    // async function post() {
+    //     try{
+    //         // await createPost(access, payload.user_role, districtdan.toString(), districtga.toString(), go_date.toString(), +count, price, addition.toString())
+    //         // const res = await getUserPosts(access)
+    //         const user_posts: Post[] = res.data.results
+    //         user_posts.sort((a, b) => b.status - a.status)
+    //         userPostsStore.set(user_posts)
+    //         close()
+    //     } catch(err: any) {
+    //         console.log(err)
+    //     }
+    // }
     
-    getLocations()
+    // getLocations()
     
 </script>
 
@@ -108,7 +108,7 @@
 
         <div class="flex justify-between">
             <button on:click={() => close()} class="py-2 px-4 rounded-md text-white bg-red-600">Yopish</button>
-            <button on:click={() => { post()}} class="py-2 px-4 rounded-md text-white bg-green-600">Qo'shish</button>
+            <button on:click={() => {}} class="py-2 px-4 rounded-md text-white bg-green-600">Qo'shish</button>
         </div>
     </div>
 </div>
