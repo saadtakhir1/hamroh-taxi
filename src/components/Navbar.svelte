@@ -1,7 +1,7 @@
 <script lang="ts">
 
   import { navigate } from "svelte-navigator"
-  import { UserEndpoint } from '../api/api'
+  import { UserEndpoint } from '../api'
 
   const userEndpoint = new UserEndpoint()
   const access = localStorage.getItem('access')
@@ -33,7 +33,7 @@
 
 </script>
 
-<nav class="shadow-sm fixed top-0 left-0 right-0 bg-white/50 backdrop-blur-md px-4 py-3 lg:px-8 sm:py-3 text-white z-[999]">
+<nav class="shadow-sm grow-0 h-fit sticky top-0 left-0 right-0 bg-white px-4 py-3 lg:px-8 sm:py-3 text-white z-[999]">
     <div class="flex justify-between items-center lg:px-8">
       <a on:click={() => navigate('/')} class="sm:text-2xl font-[900] text-xl flex items-center gap-1" href="/" ><img src="./images/logonav.svg" alt="navlogo"></a>
       <button on:click={() => {
@@ -41,11 +41,11 @@
       }} class="open-menu bg-gradient-to-b from-indigo-500 from-1%  to-indigo-900 to-100% px-2 py-1 rounded-lg shadow-sm" type="button">
         <i class="bi bi-list text-xl text-white"></i>
       </button>
-      <div class={"h-screen w-screen bg-black/50 relative top-0 left-0 " + (showMenu ? "block" : "hidden")}>
-        <div class={"collapsse w-screen fixed top-0 right-0 h-screen transition-all duration-200 ease-in-out flex flex-col justify-between gap-3 px-4 py-3 sm:px-8 sm:py-3 bg-indigo-800 text-white " + (showMenu ? "translate-x-[0]" : "translate-x-[100%]")}>
+      <div class={"h-screen w-screen relative top-0 left-0 right-0 bottom-0 " + (showMenu ? "block" : "hidden")}>
+        <div class={"collapsse w-4/5 fixed top-0 left-0 h-screen transition-all duration-200 ease-in-out flex flex-col justify-between gap-3 px-4 py-3 sm:px-8 sm:py-3 bg-indigo-800 text-white " + (showMenu ? "translate-x-[0]" : "translate-x-[-100%]")}>
           <div class="collapse-menu flex justify-between">
             <p class="px-5 text-xl font-semibold">Menu</p>
-            <button on:click={() => showMenu = false} class="close-menu bg-white text-black px-2 py-1 rounded-lg"><i class="bi bi-x text-xl"></i></button>
+            <button on:click={() => showMenu = false} class="close-menu bg-white text-black px-2 py-1 rounded-lg"><i class="bi bi-arrow-left text-xl"></i></button>
           </div>
           <div class="flex flex-col items-start px-5 gap-2 font-semibold sm:text-xs">
               <button on:click={() => navigate('/')} class="py-2 rounded"><i

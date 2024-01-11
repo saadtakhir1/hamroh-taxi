@@ -3,7 +3,7 @@
 
 </script>
 
-<footer>
+<footer class="grow-0 h-fit">
     <div class="flex flex-col">
       <div class="footer-links bg-indigo-950 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 items-start p-5">
         <div class="footer-soc-list flex flex-col justify-start gap-3 py-4">

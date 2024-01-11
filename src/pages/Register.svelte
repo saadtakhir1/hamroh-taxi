@@ -1,21 +1,22 @@
 <script lang="ts">
     import { navigate } from 'svelte-navigator';
-    import { authRegister, authLogin, LoginDto, RegisterDto } from '../api/auth.api'
+    import { RegisterDto, UserEndpoint } from '../api'
     import Alert from '../modals/Alert.svelte'
 
     document.body.classList.add('bg-indigo-500')
-
-    // register uchun o'zgaruvchilar
+    const userEndpoint = new UserEndpoint()
+    
+    // variables for register
     let name: HTMLInputElement
     let phone: HTMLInputElement
     let email: HTMLInputElement
     let password: HTMLInputElement
-    let role: HTMLSelectElement
+    let role: string = 'passenger'
     let carNumber: HTMLInputElement
     let carType: HTMLSelectElement
     let errTextPass: string
 
-    // tekshirish uchun o'zgaruvchilar
+    // variables for check
     let nameIsTrue: boolean
     let phoneIsTrue: boolean
     let passIsTrue: boolean
@@ -58,14 +59,6 @@
         }
     }    
 
-    function showCarReg(){
-        if(+role.value == 1){
-            carRegIsTrue = true
-        }else{
-            carRegIsTrue = false
-        }
-    }
-
     function upperCaseCarNum(){
         let currentValue = carNumber.value;
         if(currentValue.length > 8){
@@ -95,13 +88,13 @@
                 name: name.value.toString(),
                 phone: "+998" + phone.value.toString(),
                 password: password.value.toString(),
-                role: +role.value == 1 ? 'driver' : 'passenger',
+                role: role,
                 email: email.value.toString(),
                 carNumber: carRegIsTrue ? carNumber.value : null,
                 carType: carRegIsTrue ? carType.value : null
             }
             try {
-                const res = await authRegister(user_data)
+                const res = await userEndpoint.register(user_data)
                 const access = res.data.access
                 const refresh = res.data.refresh
                 const user = res.data.user
@@ -113,10 +106,11 @@
             } catch(err: any){
                 addAlert(err.response.data.message, 'red', true)
             }
-        }
-                
+        }          
     }
+
     let btn_passenger: HTMLButtonElement
+    let btn_driver: HTMLButtonElement
 
 </script>
 
@@ -152,7 +146,7 @@
                 </span>
                 <span class="flex flex-col gap-1">
                     <label class="font-semibold" for="parol">Parol:</label>
-                    <input on:change={checkPassword} bind:this={password} class="outline-0 rounded-md border-2 py-1 px-3" type="password" name="parol" id="parol" placeholder="****">
+                    <input on:change={checkPassword} bind:this={password} class="outline-0 rounded-md border-2 py-1 px-3" type="text" name="parol" id="parol" placeholder="parol">
                 </span>
                 {#if errTextPass}
                     <p class="font-semibold text-red-500">{errTextPass}</p>
@@ -160,13 +154,9 @@
                 <span class="flex flex-col gap-1">
                     <span class="flex gap-3 items-center">
                         <p>Kimsiz</p>
-                        <button bind:this={btn_passenger} on:click={() => { btn_passenger.classList.add('bg-slate-300') }} class="border-2 py-2 px-3 rounded-xl">Yo'lovchi</button>
-                        <button bind:this={btn_passenger} on:click={() => { btn_passenger.classList.add('bg-slate-300') }} class="border-2 py-2 px-3 rounded-xl">Haydovchi</button>
+                        <button bind:this={btn_passenger} on:click={() => { role = 'passenger'; btn_passenger.classList.add('bg-slate-300', 'border-indigo-900'); btn_driver.classList.remove('bg-slate-300', 'border-indigo-900'); btn_driver.classList.add('border-slate-200'); btn_passenger.classList.remove('border-slate-200'); carRegIsTrue = false }} class="border-[1px] border-indigo-900 bg-slate-200 py-2 px-3 rounded-xl">Yo'lovchi</button>
+                        <button bind:this={btn_driver} on:click={() => { role = 'driver'; btn_driver.classList.add('bg-slate-300', 'border-indigo-900'); btn_passenger.classList.remove('bg-slate-300', 'border-indigo-900'); btn_passenger.classList.add('border-slate-200'); btn_driver.classList.remove('border-slate-200'); carRegIsTrue = true }} class="border-[1px] py-2 px-3 rounded-xl">Haydovchi</button>
                     </span>
-                    <select bind:this={role} on:change={showCarReg} class="outline-0 rounded-md border-2 py-1 px-3" name="role" id="role">
-                        <option class="outline-0 rounded-md border-2 py-1 px-3" value="0">Yo'lovchi</option>
-                        <option class="outline-0 rounded-md border-2 py-1 px-3" value="1">Haydovchi</option>
-                    </select>
                 </span>
                 {#if carRegIsTrue}
                     <p class="font-semibold pl-3 border-l-4 border-indigo-900">Avtomobil malumotlari:</p>

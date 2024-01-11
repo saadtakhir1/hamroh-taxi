@@ -1,8 +1,9 @@
 <script lang="ts">
     import { navigate } from "svelte-navigator";
-    import { LoginDto, authLogin } from "../api/auth.api"
+    import { type LoginDto, UserEndpoint } from "../api"
     import Alert from "../modals/Alert.svelte"
 
+    const userEndpoint = new UserEndpoint()
 
     let show: boolean = false
     let text: string
@@ -19,16 +20,16 @@
         setTimeout(closeAlert, 10000)
     }
 
-    let phone: string
+    let email: string
     let password: string
 
     async function login() {
         try {
             const dto: LoginDto = {
-                phone: '+998' + phone.toString(),
+                email: email.toString(),
                 password: password.toString()
             }
-            const res = await authLogin(dto)
+            const res = await userEndpoint.login(dto)
             const user = res.data.user
             const access = res.data.access
             const refresh = res.data.refresh
@@ -37,7 +38,7 @@
             localStorage.setItem('refresh', refresh)
             navigate('/')
         } catch(err: any) {
-            addAlert(err.response.data.errors[0].detail, 'red', true)
+            addAlert(err.response.data.message, 'red', true)
         }
     }
 
@@ -59,8 +60,8 @@
             <p class="text-3xl text-center font-semibold">Kirish</p>
             <div class="flex flex-col gap-3">
                 <span class="flex flex-col gap-1">
-                    <label for="raqam">Phone:</label>
-                    <input bind:value={phone} class="outline-0 rounded-md border-2 py-1 px-3" type="text" name="raqam" id="" placeholder="905550055">
+                    <label for="email">Email:</label>
+                    <input bind:value={email} class="outline-0 rounded-md border-2 py-1 px-3" type="text" name="email" id="" placeholder="905550055">
                 </span>
                 <span class="flex flex-col gap-1">
                     <label for="parol">Parol:</label>

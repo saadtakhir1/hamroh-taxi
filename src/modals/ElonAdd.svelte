@@ -1,55 +1,52 @@
 <script lang="ts">
-    import { getDistricts, getRegions } from "../api/locations.api"
-    import { regionsStore, districtsStore } from "../store/location.store"
-    import { PostEndpoint } from '../api/api'
-    import { Post, userPostsStore } from "../store/posts.store";
-
+    import { PostEndpoint } from "../api"
+    import { userPostsStore, countryStore, districtStore, regionStore } from "../store";
+    import type { Post, Country, Region, District } from "../store"
+    const access = localStorage.getItem('access')
     export let show: boolean
     export let close: () => void
-
+ 
     const postEndpoint = new PostEndpoint()
+    let countries = []
+    let regions =  []
 
-    const access = localStorage.getItem('access')
-    const payload = JSON.parse(localStorage.getItem('payload'))
+    async function getLocations() {
+        try{
+            const res = await postEndpoint.getLocations()
+            countries = res.data.countries
+            regions = res.data.regions
+        }catch(err: any){
+            console.log(err)
+        }
+    } getLocations()
 
-    // async function getLocations() {
-    //     try{
-    //     regionsStore.set(reg.data)
-    //     districtsStore.set(dis.data)
-    //     }catch(err: any){
-    //     console.log(err)
-    //     }
-    // }
+    let countryFrom: HTMLSelectElement
+    let country_from: number = 1
+    let regionFrom: HTMLSelectElement
 
-    let region_dan: HTMLSelectElement
-    let region_ga: HTMLSelectElement
-    let district_dan: number = 1
-    let district_ga: number = 1
+    let countryTo: HTMLSelectElement
+    let country_to: number = 1
+    let regionTo: HTMLSelectElement
 
-    let districtga, districtdan, go_date, count, price, addition;
+    function addRegionsFrom(name: string) { country_from = countries.filter(c => c.name == name)[0].id }
+    function addRegionsTo(name: string) { country_to = countries.filter(c => c.name == name)[0].id }
 
-    function addDistrictsFrom(region_uz: string) {
-        district_dan = $regionsStore.filter(reg => reg.region_uz == region_uz)[0].id
+    let goTime: HTMLInputElement;
+    let count: HTMLInputElement;
+    let addition: HTMLTextAreaElement
+
+    async function post() {
+        try{
+            const res = await postEndpoint.post(regionFrom.value.split(' ')[0] + ' ' + countryFrom.value, regionTo.value.split(' ')[0] + ' ' + countryTo.value, new Date(goTime.value).toJSON(), +count.value, addition.value.toString(), access)
+            const post: Post = res.data.post
+            const posts = $userPostsStore
+            posts.unshift(post)
+            userPostsStore.set(posts)
+            close()
+        } catch(err: any) {
+            console.log(err)
+        }
     }
-    
-    function addDistrictsTo(region_uz: string) {
-        district_ga  = $regionsStore.filter(reg => reg.region_uz == region_uz)[0].id
-    }
-
-    // async function post() {
-    //     try{
-    //         // await createPost(access, payload.user_role, districtdan.toString(), districtga.toString(), go_date.toString(), +count, price, addition.toString())
-    //         // const res = await getUserPosts(access)
-    //         const user_posts: Post[] = res.data.results
-    //         user_posts.sort((a, b) => b.status - a.status)
-    //         userPostsStore.set(user_posts)
-    //         close()
-    //     } catch(err: any) {
-    //         console.log(err)
-    //     }
-    // }
-    
-    // getLocations()
     
 </script>
 
@@ -62,53 +59,49 @@
             <div class="flex flex-col gap-2">
                 <label class="font-semibold" for="">Yo'nalish*:</label>
                 <span class="flex flex-col md:flex-row gap-2">
-                    dan
-                    <select on:change={() => {addDistrictsFrom(region_dan.value)}}  class="outline-0 border-2 px-3 py-1 rounded" name="" id="" bind:this={region_dan}>
-                        {#each $regionsStore as region}
-                            <option value="{region.region_uz}">{region.region_uz}</option>
+                    qayerdan
+                    <select bind:this={countryFrom} on:change={() => {addRegionsFrom(countryFrom.value)}}  class="outline-0 border-2 px-3 py-1 rounded" name="">
+                        {#each countries as country}
+                            <option value="{country.name}">{country.name}</option>
                         {/each}
                     </select>
-                    <select bind:value={districtdan} class="outline-0 border-2 px-3 py-1 rounded" name="" id="">
-                        {#each $districtsStore.filter(dist => dist.region_id == district_dan) as dist}
-                            <option value="{dist.district_uz}" >{dist.district_uz}</option>
+                    <select bind:this={regionFrom}  class="outline-0 border-2 px-3 py-1 rounded" name="">
+                        {#each regions.filter(r => r.country_id == country_from) as reg}
+                            <option value="{reg.name}">{reg.name}</option>
                         {/each}
                     </select>
                 </span>
                 <span class="flex flex-col md:flex-row gap-2">
-                    ga
-                    <select on:change={() => {addDistrictsTo(region_ga.value)}} class="outline-0 border-2 px-3 py-1 rounded" name="" id="" bind:this={region_ga}>
-                        {#each $regionsStore as region}
-                            <option value="{region.region_uz}">{region.region_uz}</option>
+                    qayerga
+                    <select bind:this={countryTo} on:change={() => {addRegionsTo(countryTo.value)}}  class="outline-0 border-2 px-3 py-1 rounded" name="">
+                        {#each countries as country}
+                            <option value="{country.name}">{country.name}</option>
                         {/each}
                     </select>
-                    <select bind:value={districtga} class="outline-0 border-2 px-3 py-1 rounded" name="" id="">
-                        {#each $districtsStore.filter(dist => dist.region_id == district_ga) as dist}
-                            <option value="{dist.district_uz}">{dist.district_uz}</option>
+                    <select bind:this={regionTo} class="outline-0 border-2 px-3 py-1 rounded" name="">
+                        {#each regions.filter(r => r.country_id == country_to) as reg}
+                            <option value="{reg.name}">{reg.name}</option>
                         {/each}
                     </select>
                 </span>
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-semibold" for="">Ketish vaqti*:</label>
-                <input bind:value={go_date} class="outline-0 border-2 px-3 py-1 rounded" type="datetime-local">
+                <input bind:this={goTime} class="outline-0 border-2 px-3 py-1 rounded" type="datetime-local">
             </div>
             <div class="flex flex-col gap-2">
                 <label for="" class="font-semibold">Hamrohlar soni*:</label>
-                <input bind:value={count} class="outline-0 border-2 px-3 py-1 rounded" type="number" name="" id="" min="1" max="20" placeholder="1">
+                <input bind:this={count} class="outline-0 border-2 px-3 py-1 rounded" type="number" name="" id="" min="1" max="6" placeholder="1">
             </div>
             <div class="flex flex-col gap-2">
-                <label for="" class="font-semibold">Narxi*:</label>
-                <input bind:value={price} class="outline-0 border-2 px-3 py-1 rounded" type="text" name="" id="" placeholder="200000">
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="" class="font-semibold">Qo'shimcha*:</label>
-                <input bind:value={addition} class="outline-0 border-2 px-3 py-1 rounded" type="text" name="" id="" placeholder="Botirlar mahallasidan">
+                <label for="izoh" class="font-semibold">Qo'shimcha*:</label>
+                <textarea bind:this={addition} class="outline-0 border-2 px-3 py-1 rounded" name="izoh" id="" placeholder="Botirlar mahallasidan"></textarea>
             </div>
         </div>
 
         <div class="flex justify-between">
             <button on:click={() => close()} class="py-2 px-4 rounded-md text-white bg-red-600">Yopish</button>
-            <button on:click={() => {}} class="py-2 px-4 rounded-md text-white bg-green-600">Qo'shish</button>
+            <button on:click={post} class="py-2 px-4 rounded-md text-white bg-green-600">Qo'shish</button>
         </div>
     </div>
 </div>
