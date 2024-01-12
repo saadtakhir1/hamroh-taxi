@@ -1,4 +1,5 @@
 <script lang="ts">
+  import EditUser from "../modals/EditUser.svelte"
 
   export let showme: boolean
 
@@ -47,3 +48,5 @@
   </div>
   <button class="text-zinc-100 text-xl font-semibold bg-indigo-500 py-2 rounded-lg"><i class="bi bi-pencil"></i> Tahrirlash</button>
 </div>
+
+

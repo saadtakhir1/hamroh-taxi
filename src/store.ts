@@ -22,6 +22,31 @@ export type Post = {
     updatedAt: string
 }
 
+export type User = { 
+    id: number,
+    role: string,
+    profile: { 
+        id: number,
+        userId: number,
+        userName: string,
+        userRole: string,
+        userPhone: string,
+        userEmail: string,
+        userCarNumber:null,
+        userCarType:null,
+        createdAt: string,
+        updatedAt: string
+    },
+    car:{
+        id: number,
+        userId: number,
+        carNumber: string,
+        carType: string,
+        createdAt: string,
+        updatedAt: string
+    }
+    }
+
 export const passPostsStore: Writable<Post[]> = writable([])
 export const drivPostsStore: Writable<Post[]> = writable([])
 export const userPostsStore: Writable<Post[]> = writable([])

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URL = 'http://localhost:4802/api'
+const URL = 'https://hamroh.webpack.uz/api'
 
 export type LoginDto = {
     email: string,

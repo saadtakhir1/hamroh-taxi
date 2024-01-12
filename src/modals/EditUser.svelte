@@ -1,11 +1,11 @@
 <script lang="ts">
     import { PostEndpoint } from "../api";
     import { userPostsStore } from "../store";
-    import type { Post } from "../store";
+    import type { User } from "../store";
 
     export let show: boolean
     export let close: () => void
-    export let post: Post
+    export let user: User
     
     const access = localStorage.getItem('access')
     const postEndpoint = new PostEndpoint()
@@ -39,12 +39,12 @@
     let addition: HTMLTextAreaElement
 
     async function edit() {
-        let id = post.id
+        let id = user.id
         try{
             const res = await postEndpoint.put(id, regionFrom.value.split(' ')[0] + ' ' + countryFrom.value, regionTo.value.split(' ')[0] + ' ' + countryTo.value, new Date(goTime.value).toJSON(), +count.value, addition.value.toString(), access)
-            const post: Post = res.data.post
-            const posts = $userPostsStore.filter(p => p.id != post.id)
-            posts.unshift(post)
+            const user: User = res.data.user
+            const posts = $userPostsStore.filter(p => p.id != user.id)
+            posts.unshift(user)
             userPostsStore.set(posts)
             close()
         } catch(err: any) {
@@ -64,7 +64,7 @@
                 <label class="font-semibold" for="">Yo'nalish*:</label>
                 <span class="flex flex-col md:flex-row gap-2">
                     qayerdan
-                    <select bind:this={countryFrom} value="{post.fromLocation.split(' ')[2]}" on:change={() => {addRegionsFrom(countryFrom.value)}}  class="outline-0 border-2 px-3 py-1 rounded" name="">
+                    <select bind:this={countryFrom} value="{user.fromLocation.split(' ')[2]}" on:change={() => {addRegionsFrom(countryFrom.value)}}  class="outline-0 border-2 px-3 py-1 rounded" name="">
                         {#each countries as country}
                             <option value="{country.name}">{country.name}</option>
                         {/each}
@@ -77,7 +77,7 @@
                 </span>
                 <span class="flex flex-col md:flex-row gap-2">
                     qayerga
-                    <select bind:this={countryTo} on:change={() => {addRegionsTo(countryTo.value)}} value="{post.toLocation.split(' ')[2]}"  class="outline-0 border-2 px-3 py-1 rounded" name="">
+                    <select bind:this={countryTo} on:change={() => {addRegionsTo(countryTo.value)}} value="{user.toLocation.split(' ')[2]}"  class="outline-0 border-2 px-3 py-1 rounded" name="">
                         {#each countries as country}
                             <option value="{country.name}">{country.name}</option>
                         {/each}
@@ -91,15 +91,15 @@
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-semibold" for="">Ketish vaqti*:</label>
-                <input bind:this={goTime} bind:value={post.goTime} class="outline-0 border-2 px-3 py-1 rounded" type="datetime-local">
+                <input bind:this={goTime} bind:value={user.goTime} class="outline-0 border-2 px-3 py-1 rounded" type="datetime-local">
             </div>
             <div class="flex flex-col gap-2">
                 <label for="" class="font-semibold">Hamrohlar soni*:</label>
-                <input bind:this={count} bind:value={post.count} class="outline-0 border-2 px-3 py-1 rounded" type="number" name="" id="" min="1" max="6" placeholder="1">
+                <input bind:this={count} bind:value={user.count} class="outline-0 border-2 px-3 py-1 rounded" type="number" name="" id="" min="1" max="6" placeholder="1">
             </div>
             <div class="flex flex-col gap-2">
                 <label for="izoh" class="font-semibold">Qo'shimcha*:</label>
-                <textarea bind:this={addition} bind:value={post.addition} class="outline-0 border-2 px-3 py-1 rounded" name="izoh" id="" placeholder="Botirlar mahallasidan"></textarea>
+                <textarea bind:this={addition} bind:value={user.addition} class="outline-0 border-2 px-3 py-1 rounded" name="izoh" id="" placeholder="Botirlar mahallasidan"></textarea>
             </div>
         </div>
 

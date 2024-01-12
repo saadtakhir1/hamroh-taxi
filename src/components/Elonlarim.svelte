@@ -2,7 +2,7 @@
     import ElonAdd from "../modals/ElonAdd.svelte"
     import ElonProfile from "./ElonProfile.svelte"
     import { PostEndpoint } from "../api";
-    import { Post, countryStore, districtStore, regionStore, userPostsStore } from "../store"
+    import { Post, userPostsStore } from "../store"
 
     const access = localStorage.getItem('access')
     const postEndpoint = new PostEndpoint()
@@ -19,7 +19,6 @@
             const res = await postEndpoint.getByUser(1, status, 40, access)
             const posts: Post[] = res.data.posts
             userPostsStore.set(posts)
-            console.log(posts)
         }
         catch(err: any) {
             console.log(err)

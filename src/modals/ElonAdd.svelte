@@ -1,12 +1,14 @@
 <script lang="ts">
-    import { PostEndpoint } from "../api"
-    import { userPostsStore, countryStore, districtStore, regionStore } from "../store";
-    import type { Post, Country, Region, District } from "../store"
-    const access = localStorage.getItem('access')
+    import { PostEndpoint } from "../api";
+    import { userPostsStore } from "../store";
+    import type { Post } from "../store";
+
     export let show: boolean
     export let close: () => void
- 
+
+    const access = localStorage.getItem('access')
     const postEndpoint = new PostEndpoint()
+    
     let countries = []
     let regions =  []
 
