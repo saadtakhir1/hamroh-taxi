@@ -30,6 +30,9 @@ export class UserEndpoint {
     async register(dto: RegisterDto) {
         return await axios.post(`${URL}/user/register`, dto)
     }
+    async put(dto: RegisterDto) {
+        return await axios.post(`${URL}/user/register`, dto)
+    }
     async reset(token: string, oldPassword: string, newPassword: string) {
         return await axios.post(`${URL}/user/register`, { oldPassword, newPassword }, { headers: { 'Authorization': `Bearer ${token}` } })
     }
